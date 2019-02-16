@@ -7,12 +7,18 @@
   </div>
 </nav> -->
 
-<nav
-  class="navbar navbar-expand-lg navbar-dark bg-dark rounded"
-  *ngIf="currentUser"
->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="currentUser">
   <!-- <a class="navbar-brand" href="/">Helzberg Admin Panel</a> -->
   <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/home" routerLinkActive="active">
+        <img
+          class="ml-dynamic-data-img bh-logo imgRespId"
+          src="https://www.helzberg.com/images/set_a/en_us/global/globalnav/helzberg-diamonds-logo-black.png"
+          alt="Helzberg Diamonds a Berkshire Hathaway Company Home"
+          id="imgResponsiveId"
+      /></a>
+    </li>
     <li class="nav-item">
       <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
     </li>
@@ -29,13 +35,6 @@
   </ul>
 </nav>
 
-<img
-  *ngIf="currentUser"
-  class="ml-dynamic-data-img bh-logo imgRespId"
-  src="https://www.helzberg.com/images/set_a/en_us/global/globalnav/helzberg-diamonds-logo-black.png"
-  alt="Helzberg Diamonds a Berkshire Hathaway Company Home"
-  id="imgResponsiveId"
-/>
 <!-- main app container -->
 <div class="container">
   <div class="row">
