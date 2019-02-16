@@ -4,12 +4,10 @@ import { first } from "rxjs/operators";
 // import { TableModule } from "primeng/table";
 import { User } from "@app/_models";
 import { UserService, AuthenticationService } from "@app/_services";
-// import {MatTableDataSource} from '@angular/material';
-// import {MatTableDataSource} from '@angular/material';
 
 import { MatSort, MatTableDataSource } from "@angular/material";
 
-const ELEMENT_DATA: User[] = [
+const ELEMENT_DATA = [
   {
     name: "Tal",
     email: "tlusa18@gmail.com",
@@ -109,12 +107,11 @@ const ELEMENT_DATA: User[] = [
 ];
 @Component({
   templateUrl: "home.component.html",
-  styleUrls: ["home.component.css"]
+  styleUrls: ["home.component.scss"]
 })
 export class HomeComponent implements OnInit, OnDestroy {
   currentUser: User;
   currentUserSubscription: Subscription;
-  // displayedColumns: string[] = ["id", "barcode", "name", "email", "phone"];
   displayedColumns: string[] = [
     "name",
     "email",
@@ -122,9 +119,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     "barcode",
     "sales_person"
   ];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource:any = new MatTableDataSource(ELEMENT_DATA);
   @ViewChild(MatSort) sort: MatSort;
-  // dataSource = ELEMENT_DATA;
 
   constructor(
     private authenticationService: AuthenticationService,

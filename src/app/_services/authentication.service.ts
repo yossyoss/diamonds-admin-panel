@@ -24,8 +24,6 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    console.log(username, password);
-
     return this.http
       .post<any>(
         `${

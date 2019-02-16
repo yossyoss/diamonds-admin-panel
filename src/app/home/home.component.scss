@@ -1,0 +1,14 @@
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+.mat-cell a {
+  color: black;
+  &:hover {
+    color: lightblue;
+    text-decoration: none;
+  }
+}

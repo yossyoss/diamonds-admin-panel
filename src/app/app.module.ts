@@ -48,7 +48,8 @@ import { MatInputModule,
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatTreeModule, } from "@angular/material";
+  MatTreeModule, } from "@angular/material";;
+import { UserManagementComponent } from './user-management/user-management.component'
 
 @NgModule({
   imports: [
@@ -105,7 +106,8 @@ import { MatInputModule,
     LoginComponent,
     JewelleryStatisticsComponent,
     SalesStatisticsComponent
-  ],
+,
+    UserManagementComponent  ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
