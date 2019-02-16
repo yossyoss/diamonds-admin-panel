@@ -2,8 +2,8 @@
 import { Subscription } from "rxjs";
 import { first } from "rxjs/operators";
 // import { TableModule } from "primeng/table";
-import { User } from "@app/_models";
-import { UserService, AuthenticationService } from "@app/_services";
+import { Customer } from "@app/_models";
+import { CustomersService, AuthenticationService } from "@app/_services";
 
 import { MatSort, MatTableDataSource } from "@angular/material";
 
@@ -110,7 +110,7 @@ const ELEMENT_DATA = [
   styleUrls: ["home.component.scss"]
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  currentUser: User;
+  currentUser: Customer;
   currentUserSubscription: Subscription;
   displayedColumns: string[] = [
     "name",
@@ -124,7 +124,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private userService: UserService
+    private customersService: CustomersService
   ) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
       user => {
@@ -134,7 +134,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.loadAllUsers();
+    this.loadAllCustomers();
     this.dataSource.sort = this.sort;
     // this.dataSource = this.users;
   }
@@ -146,19 +146,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.currentUserSubscription.unsubscribe();
   }
 
-  deleteUser(id: number) {
-    this.userService
-      .delete(id)
-      .pipe(first())
-      .subscribe(() => {
-        this.loadAllUsers();
-      });
-  }
+  // deleteUser(id: number) {
+  //   this.customersService
+  //     .delete(id)
+  //     .subscribe(() => {
+  //       this.loadAllCustomers();
+  //     });
+  // }
 
-  private loadAllUsers() {
-    this.userService
+  private loadAllCustomers() {
+    this.customersService
       .getAll()
-      .pipe(first())
       .subscribe(users => {
         this.dataSource = users;
       });
