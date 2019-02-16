@@ -1,12 +1,36 @@
 ﻿<!-- nav -->
-<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
+<!-- <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
   <div class="navbar-nav">
     <a class="nav-item nav-link" routerLink="/">Home</a>
     <a class="nav-item nav-link" routerLink="/users">User Management</a>
     <a class="nav-item nav-link" (click)="logout()">Logout</a>
   </div>
+</nav> -->
+
+<nav
+  class="navbar navbar-expand-lg navbar-dark bg-dark rounded"
+  *ngIf="currentUser"
+>
+  <!-- <a class="navbar-brand" href="/">Helzberg Admin Panel</a> -->
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/users" routerLinkActive="active"
+        >User Management</a
+      >
+    </li>
+  </ul>
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <a class="nav-link" (click)="logout()">Logout</a>
+    </li>
+  </ul>
 </nav>
+
 <img
+  *ngIf="currentUser"
   class="ml-dynamic-data-img bh-logo imgRespId"
   src="https://www.helzberg.com/images/set_a/en_us/global/globalnav/helzberg-diamonds-logo-black.png"
   alt="Helzberg Diamonds a Berkshire Hathaway Company Home"
@@ -21,13 +45,3 @@
     </div>
   </div>
 </div>
-
-<!-- credits -->
-<!-- <div class="text-center">
-    <p>
-        <a href="http://jasonwatmore.com/post/2018/10/29/angular-7-user-registration-and-login-example-tutorial" target="_top">Angular 7 - User Registration and Login Example & Tutorial</a>
-    </p>
-    <p>
-        <a href="http://jasonwatmore.com" target="_top">JasonWatmore.com</a>
-    </p>
-</div> -->
