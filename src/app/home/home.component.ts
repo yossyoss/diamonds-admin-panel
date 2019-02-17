@@ -110,7 +110,7 @@ const ELEMENT_DATA = [
   styleUrls: ["home.component.scss"]
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  currentUser: Customer;
+  currentUser: any;
   currentUserSubscription: Subscription;
   displayedColumns: string[] = [
     "name",
