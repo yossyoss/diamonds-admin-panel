@@ -2,11 +2,11 @@
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from './_services';
-import { User } from './_models';
+import { Customer } from './_models';
 
 @Component({ selector: 'app', templateUrl: 'app.component.html' })
 export class AppComponent {
-    currentUser: any;
+    currentUser: Customer;
 
     constructor(
         private router: Router,

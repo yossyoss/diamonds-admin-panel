@@ -52,9 +52,15 @@ import {
   MatTreeModule
 } from "@angular/material";
 import { UserManagementComponent } from "./user-management/user-management.component";
-
+import { ChartModule } from "primeng/chart";
+import { MessageService } from "primeng/api";
+import { ToastModule } from "primeng/toast";
+import { CalendarModule } from "primeng/calendar";
 @NgModule({
   imports: [
+    ToastModule,
+    CalendarModule,
+    ChartModule,
     BrowserModule,
     MatTableModule,
     ReactiveFormsModule,
@@ -111,6 +117,7 @@ import { UserManagementComponent } from "./user-management/user-management.compo
     UserManagementComponent
   ],
   providers: [
+    MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
 

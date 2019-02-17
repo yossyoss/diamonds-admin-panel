@@ -1,3 +1,33 @@
-<p>
-  {{ id }}
-</p>
+<div class="row">
+  <div class="col-12 text-center mb-3 mt-3">
+    Select date reange:
+    <p-calendar
+      [(ngModel)]="rangeDates"
+      selectionMode="range"
+      showButtonBar="true"
+      [readonlyInput]="true"
+      (onClose)="onClose($event)"
+      (onSelect)="onSelect($event)"
+      dateFormat="mm/dd/yy"
+      [showIcon]="true"
+    ></p-calendar>
+    <!-- dateFormat="mm.dd.yy" -->
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 col-sm-12">
+    <h3 class="text-center">Total Videos Sent daily</h3>
+
+    <p-chart
+      type="line"
+      [data]="dataForLineChart"
+      [options]="options"
+    ></p-chart>
+  </div>
+  <div class="col-md-6 col-sm-12">
+    <h3 class="text-center">Watched Video</h3>
+    <div class="text-center">
+      <video src="{{ videoLink }}" controls></video>
+    </div>
+  </div>
+</div>

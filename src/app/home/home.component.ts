@@ -110,7 +110,7 @@ const ELEMENT_DATA = [
   styleUrls: ["home.component.scss"]
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  currentUser: any;
+  currentUser: Customer;
   currentUserSubscription: Subscription;
   displayedColumns: string[] = [
     "name",
@@ -119,7 +119,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     "barcode",
     "sales_person"
   ];
-  dataSource:any = new MatTableDataSource(ELEMENT_DATA);
+  dataSource: any = new MatTableDataSource(ELEMENT_DATA);
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
@@ -155,10 +155,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   // }
 
   private loadAllCustomers() {
-    this.customersService
-      .getAll()
-      .subscribe(users => {
-        this.dataSource = users;
-      });
+    this.customersService.getAll().subscribe(users => {
+      this.dataSource = users;
+    });
   }
 }
