@@ -22,7 +22,7 @@ export class UsersService {
   //   return this.http.put(`${environment.apiUrl}/users/${user.id}`, user);
   // }
 
-  add(user: User, manufacturerId: number) {
+  add(user: any, manufacturerId: number) {
     return this.http.post(
       `${environment.apiUrl}/user/addUser?manufacturerId=${manufacturerId}`,
       user

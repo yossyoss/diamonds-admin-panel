@@ -6,7 +6,7 @@ import { User } from './_models';
 
 @Component({ selector: 'app', templateUrl: 'app.component.html' })
 export class AppComponent {
-    currentUser: User;
+    currentUser: any;
 
     constructor(
         private router: Router,
