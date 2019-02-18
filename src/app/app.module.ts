@@ -55,7 +55,8 @@ import { UserManagementComponent } from "./user-management/user-management.compo
 import { ChartModule } from "primeng/chart";
 import { MessageService } from "primeng/api";
 import { ToastModule } from "primeng/toast";
-import { CalendarModule } from "primeng/calendar";
+import { CalendarModule } from "primeng/calendar";;
+import { StoreStatisticsComponent } from './store-statistics/store-statistics.component'
 @NgModule({
   imports: [
     ToastModule,
@@ -115,7 +116,8 @@ import { CalendarModule } from "primeng/calendar";
     JewelleryStatisticsComponent,
     SalesStatisticsComponent,
     UserManagementComponent
-  ],
+,
+    StoreStatisticsComponent  ],
   providers: [
     MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
