@@ -110,8 +110,8 @@ const ELEMENT_DATA = [
   styleUrls: ["home.component.scss"]
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  currentUser: Customer;
-  currentUserSubscription: Subscription;
+  // currentUser: Customer;
+  // currentUserSubscription: Subscription;
   displayedColumns: string[] = [
     "name",
     "email",
@@ -124,14 +124,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private authenticationService: AuthenticationService,
     private customersService: CustomersService
   ) {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
-      user => {
-        this.currentUser = user;
-      }
-    );
+    // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
+    //   user => {
+    //     this.currentUser = user;
+    //   }
+    // );
   }
 
   ngOnInit() {
@@ -143,8 +142,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
-    this.currentUserSubscription.unsubscribe();
+    
   }
 
 

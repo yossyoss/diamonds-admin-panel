@@ -10,7 +10,7 @@ export class UsersService {
 
   getAll() {
     return this.http.get<User[]>(
-      `${environment.apiUrl}/user/getAllUsers?manufacturerId=2`
+      `${environment.apiUrl}/user/getAllUsers?manufacturerId=1`
     );
   }
 
