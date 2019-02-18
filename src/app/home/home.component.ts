@@ -117,7 +117,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     "email",
     "phone",
     "barcode",
-    "sales_person"
+    "sales_person",
+    "store"
   ];
   dataSource: any = new MatTableDataSource(ELEMENT_DATA);
   @ViewChild(MatSort) sort: MatSort;
@@ -146,13 +147,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.currentUserSubscription.unsubscribe();
   }
 
-  // deleteUser(id: number) {
-  //   this.customersService
-  //     .delete(id)
-  //     .subscribe(() => {
-  //       this.loadAllCustomers();
-  //     });
-  // }
 
   private loadAllCustomers() {
     this.customersService.getAll().subscribe(users => {

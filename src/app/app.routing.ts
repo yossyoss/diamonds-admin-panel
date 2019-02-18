@@ -4,12 +4,11 @@ import { SalesStatisticsComponent } from "./sales-statistics";
 import { UserManagementComponent } from "./user-management";
 import { HomeComponent } from "./home";
 import { LoginComponent } from "./login";
-// import { RegisterComponent } from './register';
 import { AuthGuard } from "./_guards";
 
 const appRoutes: Routes = [
   { path: "home", component: HomeComponent, canActivate: [AuthGuard] },
-  { path: "login", component: LoginComponent },
+  { path: "", component: LoginComponent },
   {
     path: "users",
     component: UserManagementComponent,

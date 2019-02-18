@@ -1,10 +1,15 @@
 ﻿import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { fadeAnimation } from './animations';
 import { AuthenticationService } from './_services';
 import { Customer } from './_models';
 
-@Component({ selector: 'app', templateUrl: 'app.component.html' })
+@Component({ 
+    selector: 'app', 
+    templateUrl: 'app.component.html',
+    animations: [fadeAnimation] 
+})
+     // register the animation)
 export class AppComponent {
     currentUser: Customer;
 

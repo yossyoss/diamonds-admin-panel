@@ -215,7 +215,7 @@ export class JewelleryStatisticsComponent implements OnInit {
   }
   private getStatisticsByDate() {
     this.statisticsService
-      .getJewelryDataByDateRange(
+      .getJewelryByBarcodeAndDate(
         this.id,
         this.formatDate(this.rangeDates[0]),
         this.formatDate(this.rangeDates[1])
