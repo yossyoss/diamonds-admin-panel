@@ -8,9 +8,9 @@ import { User } from "@app/_models";
 export class UsersService {
   constructor(private http: HttpClient) {}
 
-  getAll() {
+  getAll(manufacturerId: number) {
     return this.http.get<User[]>(
-      `${environment.apiUrl}/user/getAllUsers?manufacturerId=1`
+      `${environment.apiUrl}/user/getAllUsers?manufacturerId=${manufacturerId}`
     );
   }
 
@@ -22,7 +22,7 @@ export class UsersService {
   //   return this.http.put(`${environment.apiUrl}/users/${user.id}`, user);
   // }
 
-  add(user: any, manufacturerId: number) {
+  add(user: User, manufacturerId: number) {
     return this.http.post(
       `${environment.apiUrl}/user/addUser?manufacturerId=${manufacturerId}`,
       user

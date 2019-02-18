@@ -1,3 +1,49 @@
-<p>
-  user-management works!
-</p>
+<div class="container">
+  <div class="table-header mt-2">
+    <mat-form-field>
+      <input
+        matInput
+        (keyup)="applyFilter($event.target.value)"
+        placeholder="Filter"
+      />
+    </mat-form-field>
+    <button class="table-header-btn" mat-raised-button color="primary">
+      Add new User
+    </button>
+  </div>
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>last Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
+      <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
+      <td mat-cell *matCellDef="let element">{{ element.role | lowercase }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="store">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Store</th>
+      <td mat-cell *matCellDef="let element">
+        <a
+          routerLink="/statistics/store/{{ element.store?.id }}"
+          routerLinkActive="active-link"
+          >{{ element.store?.name }}</a
+        >
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

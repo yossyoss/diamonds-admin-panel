@@ -6,9 +6,24 @@
 router-outlet ~ * {
   position: absolute;
   height: 100%;
-  width: 100%;
+  width: 99%;
 }
 
 body {
   background: #dadada;
+}
+
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+.mat-cell a {
+  color: black;
+  &:hover {
+    color: lightblue;
+    text-decoration: none;
+  }
 }
