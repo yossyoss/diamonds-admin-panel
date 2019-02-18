@@ -2,15 +2,13 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "primeng/resources/themes/omega/theme.css";
 @import "primeng/resources/primeng.min.css";
-body {
-  background: #c3c3c399;
-}
-.imgRespId {
-  width: 110px;
-  background: white;
-}
+
 router-outlet ~ * {
   position: absolute;
   height: 100%;
   width: 100%;
+}
+
+body {
+  background: #dadada;
 }

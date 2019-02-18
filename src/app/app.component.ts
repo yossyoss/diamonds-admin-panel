@@ -7,6 +7,7 @@ import { Customer } from './_models';
 @Component({ 
     selector: 'app', 
     templateUrl: 'app.component.html',
+    styleUrls: ['app.component.scss'],
     animations: [fadeAnimation] 
 })
      // register the animation)
