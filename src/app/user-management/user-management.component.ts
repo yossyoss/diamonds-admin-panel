@@ -6,7 +6,13 @@ import { MatSort, MatTableDataSource } from "@angular/material";
   styleUrls: ["./user-management.component.scss"]
 })
 export class UserManagementComponent implements OnInit {
-  displayedColumns: string[] = ["firstName", "lastName", "username","role","store"];
+  displayedColumns: string[] = [
+    "firstName",
+    "lastName",
+    "username",
+    "role",
+    "store"
+  ];
   dataSource: any; // = new MatTableDataSource(ELEMENT_DATA);
   @ViewChild(MatSort) sort: MatSort;
 
