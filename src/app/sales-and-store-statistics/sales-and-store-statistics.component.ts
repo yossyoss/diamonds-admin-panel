@@ -4,10 +4,10 @@ import { StatisticsService } from "@app/_services";
 
 import { MessageService } from "primeng/api";
 @Component({
-  templateUrl: "./sales-statistics.component.html",
-  styleUrls: ["./sales-statistics.component.css"]
+  templateUrl: "./sales-and-store-statistics.component.html",
+  styleUrls: ["./sales-and-store-statistics.component.css"]
 })
-export class SalesStatisticsComponent implements OnInit {
+export class SalesAndStoreStatisticsComponent implements OnInit {
   data: any;
   dataForLineChart: any;
   salesMan: any;

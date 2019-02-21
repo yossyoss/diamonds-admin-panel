@@ -16,7 +16,7 @@ import { JwtInterceptor, ErrorInterceptor } from "./_helpers";
 import { HomeComponent } from "./home";
 import { LoginComponent } from "./login";
 import { JewelleryStatisticsComponent } from "./jewellery-statistics";
-import { SalesStatisticsComponent } from "./sales-statistics";
+import { SalesAndStoreStatisticsComponent } from "./sales-and-store-statistics";
 import { StoreStatisticsComponent } from "./store-statistics/store-statistics.component";
 import { StoresComponent } from "./stores/stores.component";
 import { FiltersRowComponent } from "./filters-row/filters-row.component";
@@ -120,7 +120,7 @@ import { CalendarModule } from "primeng/calendar";
     HomeComponent,
     LoginComponent,
     JewelleryStatisticsComponent,
-    SalesStatisticsComponent,
+    SalesAndStoreStatisticsComponent,
     UserManagementComponent,
     StoreStatisticsComponent,
     FiltersRowComponent,

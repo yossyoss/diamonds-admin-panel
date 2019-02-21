@@ -1,6 +1,6 @@
 ﻿import { Routes, RouterModule } from "@angular/router";
 import { JewelleryStatisticsComponent } from "./jewellery-statistics";
-import { SalesStatisticsComponent } from "./sales-statistics";
+import { SalesAndStoreStatisticsComponent } from "./sales-and-store-statistics";
 import { StoreStatisticsComponent } from "./store-statistics";
 import { UserManagementComponent } from "./user-management";
 import { StoresComponent } from "./stores";
@@ -28,12 +28,12 @@ const appRoutes: Routes = [
   },
   {
     path: "statistics/sales/:id",
-    component: SalesStatisticsComponent,
+    component: SalesAndStoreStatisticsComponent,
     canActivate: [AuthGuard]
   },
   {
     path: "statistics/stores/:id",
-    component: SalesStatisticsComponent,
+    component: SalesAndStoreStatisticsComponent,
     canActivate: [AuthGuard]
   },
   {
