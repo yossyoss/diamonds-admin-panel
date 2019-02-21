@@ -1,29 +1,82 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "@environments/environment";
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class StatisticsService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-  
-  // Sales person apis
-  getSalesPersonDataById(id: number) {
-    return this.http.get(`${environment.apiUrl}/statistics/getSalesPersonAllVideos?userId=${id}`);
-  }
- 
-  getSalesPersonDataByDateRange(id: number, from: string, to: string) {
-    return this.http.get(`${environment.apiUrl}/statistics/getSalesPersonVideosByDateRange?userId=${id}&from=${from}&to=${to}`);
+  // ****************
+  // Sales person API
+  // ****************
+  getSalesPersonDataById(userId: number) {
+    return this.http.get(
+      `${
+        environment.apiUrl
+      }/statistics/getSalesPersonAllVideos?userId=${userId}`
+    );
   }
 
-  //Jewelry apis
+  getSalesPersonDataByDateRange(userId: number, from: string, to: string) {
+    return this.http.get(
+      `${
+        environment.apiUrl
+      }/statistics/getSalesPersonVideosByDateRange?userId=${userId}&from=${from}&to=${to}`
+    );
+  }
+  // ****************
+  // Stores API
+  // ****************
+  getAllStoresVideos(manufacturerId: number, from: string, to: string) {
+    return this.http.get(
+      `${
+        environment.apiUrl
+      }/statistics/getAllStoresVideos?manufacturerId=${manufacturerId}&from=${from}&to=${to}`
+    );
+  }
+
+  getStoreVideosByDate(
+    manufacturerId: number,
+    storeId: number,
+    from: string,
+    to: string
+  ) {
+    return this.http.get(
+      `${
+        environment.apiUrl
+      }/statistics/getStoreVideosByDate?manufacturerId=${manufacturerId}&storeId=${storeId}&from=${from}&to=${to}`
+    );
+  }
+  getStoreVideosGroupByJewelry(
+    manufacturerId: number,
+    storeId: number,
+    from: string,
+    to: string
+  ) {
+    return this.http.get(
+      `${
+        environment.apiUrl
+      }/statistics/getStoreVideosGroupByJewelry?manufacturerId=${manufacturerId}&storeId=${storeId}&from=${from}&to=${to}`
+    );
+  }
+
+  // ****************
+  // Jewelry API
+  // ****************
   getJewelryByBarcodeAndDate(barcode: number, from: string, to: string) {
-    return this.http.get(`${environment.apiUrl}/statistics/getJewelryByBarcodeAndDate?barcode=${barcode}&from=${from}&to=${to}`);
+    return this.http.get(
+      `${
+        environment.apiUrl
+      }/statistics/getJewelryByBarcodeAndDate?barcode=${barcode}&from=${from}&to=${to}`
+    );
   }
 
-  getJewelryByDate(id: number, from: string, to: string) {
-    return this.http.get(`${environment.apiUrl}/statistics/getJewelryByDate?userId=${id}&from=${from}&to=${to}`);
+  getJewelryByDate(userId: number, from: string, to: string) {
+    return this.http.get(
+      `${
+        environment.apiUrl
+      }/statistics/getJewelryByDate?userId=${userId}&from=${from}&to=${to}`
+    );
   }
-  
 }

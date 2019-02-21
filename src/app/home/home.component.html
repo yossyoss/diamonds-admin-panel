@@ -28,6 +28,22 @@
       <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
     </ng-container>
 
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date video sent</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.date | date: "dd/MM/yyyy" }}
+      </td>
+    </ng-container>
+
+    <!-- Store Column -->
+    <ng-container matColumnDef="store">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Store</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.sales_person?.store }}
+      </td>
+    </ng-container>
+
     <!-- Barcode Column -->
     <ng-container matColumnDef="barcode">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Barcode</th>
@@ -51,18 +67,6 @@
         >
       </td>
     </ng-container>
-    <!-- SStore Column -->
-    <ng-container matColumnDef="store">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Store</th>
-      <td mat-cell *matCellDef="let element">
-        <a
-          routerLink="/statistics/store/{{ element.sales_person?.store }}"
-          routerLinkActive="active-link"
-          >{{ element.sales_person?.store }}</a
-        >
-      </td>
-    </ng-container>
-
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>

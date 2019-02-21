@@ -3,6 +3,7 @@ import { JewelleryStatisticsComponent } from "./jewellery-statistics";
 import { SalesStatisticsComponent } from "./sales-statistics";
 import { StoreStatisticsComponent } from "./store-statistics";
 import { UserManagementComponent } from "./user-management";
+import { StoresComponent } from "./stores";
 import { HomeComponent } from "./home";
 import { LoginComponent } from "./login";
 import { AuthGuard } from "./_guards";
@@ -13,6 +14,11 @@ const appRoutes: Routes = [
   {
     path: "users",
     component: UserManagementComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "stores",
+    component: StoresComponent,
     canActivate: [AuthGuard]
   },
   {

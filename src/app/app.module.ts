@@ -55,10 +55,11 @@ import { UserManagementComponent } from "./user-management/user-management.compo
 import { ChartModule } from "primeng/chart";
 import { MessageService } from "primeng/api";
 import { ToastModule } from "primeng/toast";
-import { CalendarModule } from "primeng/calendar";;
-import { StoreStatisticsComponent } from './store-statistics/store-statistics.component'
-;
-import { FiltersRowComponent } from './filters-row/filters-row.component'@NgModule({
+import { CalendarModule } from "primeng/calendar";
+import { FiltersRowComponent } from './filters-row/filters-row.component';
+import { StoreStatisticsComponent } from './store-statistics/store-statistics.component';;
+import { StoresComponent } from './stores/stores.component'
+@NgModule({
   imports: [
     ToastModule,
     CalendarModule,
@@ -119,7 +120,8 @@ import { FiltersRowComponent } from './filters-row/filters-row.component'@NgModu
     UserManagementComponent
 ,
     StoreStatisticsComponent ,
-    FiltersRowComponent ],
+    FiltersRowComponent ,
+    StoresComponent],
   providers: [
     MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

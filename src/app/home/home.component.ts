@@ -116,16 +116,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     "name",
     "email",
     "phone",
+    "date",
+    "store",
     "barcode",
-    "sales_person",
-    "store"
+    "sales_person"
   ];
   dataSource: any = new MatTableDataSource(ELEMENT_DATA);
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(
-    private customersService: CustomersService
-  ) {
+  constructor(private customersService: CustomersService) {
     // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
     //   user => {
     //     this.currentUser = user;
@@ -141,10 +140,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  ngOnDestroy() {
-    
-  }
-
+  ngOnDestroy() {}
 
   private loadAllCustomers() {
     this.customersService.getAll().subscribe(users => {
