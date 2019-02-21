@@ -1,0 +1,6 @@
+:host ::ng-deep .mat-chip-list-wrapper {
+  display: inline-flex;
+}
+:host ::ng-deep .mat-chip {
+  cursor: pointer;
+}
