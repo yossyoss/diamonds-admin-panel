@@ -1,0 +1,13 @@
+<div>
+  Select date reange:
+  <p-calendar
+    [(ngModel)]="rangeDates"
+    selectionMode="range"
+    showButtonBar="true"
+    [readonlyInput]="true"
+    (onClose)="onClose($event)"
+    (onSelect)="onSelect($event)"
+    dateFormat="mm/dd/yy"
+    [showIcon]="true"
+  ></p-calendar>
+</div>

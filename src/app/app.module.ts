@@ -57,7 +57,8 @@ import { MessageService } from "primeng/api";
 import { ToastModule } from "primeng/toast";
 import { CalendarModule } from "primeng/calendar";;
 import { StoreStatisticsComponent } from './store-statistics/store-statistics.component'
-@NgModule({
+;
+import { FiltersRowComponent } from './filters-row/filters-row.component'@NgModule({
   imports: [
     ToastModule,
     CalendarModule,
@@ -117,7 +118,8 @@ import { StoreStatisticsComponent } from './store-statistics/store-statistics.co
     SalesStatisticsComponent,
     UserManagementComponent
 ,
-    StoreStatisticsComponent  ],
+    StoreStatisticsComponent ,
+    FiltersRowComponent ],
   providers: [
     MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

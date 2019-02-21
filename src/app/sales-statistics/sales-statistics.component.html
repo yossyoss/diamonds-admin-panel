@@ -3,16 +3,7 @@
 </h1> -->
 <div class="row">
   <div class="col-12 text-center mb-3 mt-3">
-    Select date reange:
-    <p-calendar
-      [(ngModel)]="rangeDates"
-      selectionMode="range"
-      showButtonBar="true"
-      [readonlyInput]="true"
-      dateFormat="mm/dd/yy"
-      [showIcon]="true"
-    ></p-calendar>
-    <!-- dateFormat="mm.dd.yy" -->
+    <filters-row></filters-row>
   </div>
 </div>
 <div class="row">

@@ -195,7 +195,7 @@ export class JewelleryStatisticsComponent implements OnInit {
   }
   setPrevMonth() {
     this.rangeDates[1] = new Date();
-    let makeDate = new Date(new Date());
+    const makeDate = new Date(new Date());
     this.rangeDates[0] = new Date(makeDate.setMonth(makeDate.getMonth() - 1));
     console.log(this.rangeDates);
   }
@@ -203,7 +203,7 @@ export class JewelleryStatisticsComponent implements OnInit {
     // console.log(event);
   }
   formatDate(date) {
-    var d = new Date(date),
+    const d = new Date(date),
       month = "" + (d.getMonth() + 1),
       day = "" + d.getDate(),
       year = d.getFullYear();
