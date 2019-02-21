@@ -3,21 +3,27 @@ import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MatButtonModule, MatCheckboxModule } from "@angular/material";
+// import { MatButtonModule, MatCheckboxModule } from "@angular/material";
 
 // used to create fake backend
-import { MatTableModule } from "@angular/material/table";
+// import { MatTableModule } from "@angular/material/table";
 
 import { AppComponent } from "./app.component";
 import { routing } from "./app.routing";
-
 import { AlertComponent } from "./_components";
 import { JwtInterceptor, ErrorInterceptor } from "./_helpers";
+// pages
 import { HomeComponent } from "./home";
 import { LoginComponent } from "./login";
 import { JewelleryStatisticsComponent } from "./jewellery-statistics";
 import { SalesStatisticsComponent } from "./sales-statistics";
+import { StoreStatisticsComponent } from "./store-statistics/store-statistics.component";
+import { StoresComponent } from "./stores/stores.component";
+import { FiltersRowComponent } from "./filters-row/filters-row.component";
 import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatTableModule,
   MatInputModule,
   MatAutocompleteModule,
   MatBadgeModule,
@@ -56,9 +62,7 @@ import { ChartModule } from "primeng/chart";
 import { MessageService } from "primeng/api";
 import { ToastModule } from "primeng/toast";
 import { CalendarModule } from "primeng/calendar";
-import { FiltersRowComponent } from './filters-row/filters-row.component';
-import { StoreStatisticsComponent } from './store-statistics/store-statistics.component';;
-import { StoresComponent } from './stores/stores.component'
+
 @NgModule({
   imports: [
     ToastModule,
@@ -117,11 +121,11 @@ import { StoresComponent } from './stores/stores.component'
     LoginComponent,
     JewelleryStatisticsComponent,
     SalesStatisticsComponent,
-    UserManagementComponent
-,
-    StoreStatisticsComponent ,
-    FiltersRowComponent ,
-    StoresComponent],
+    UserManagementComponent,
+    StoreStatisticsComponent,
+    FiltersRowComponent,
+    StoresComponent
+  ],
   providers: [
     MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

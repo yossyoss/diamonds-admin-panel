@@ -110,8 +110,6 @@ const ELEMENT_DATA = [
   styleUrls: ["home.component.scss"]
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  // currentUser: Customer;
-  // currentUserSubscription: Subscription;
   displayedColumns: string[] = [
     "name",
     "email",
@@ -124,18 +122,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   dataSource: any = new MatTableDataSource(ELEMENT_DATA);
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private customersService: CustomersService) {
-    // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
-    //   user => {
-    //     this.currentUser = user;
-    //   }
-    // );
-  }
+  constructor(private customersService: CustomersService) {}
 
   ngOnInit() {
     this.loadAllCustomers();
     this.dataSource.sort = this.sort;
-    // this.dataSource = this.users;
   }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

@@ -32,6 +32,11 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: "statistics/stores/:id",
+    component: SalesStatisticsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: "statistics/store/:id",
     component: StoreStatisticsComponent,
     canActivate: [AuthGuard]
