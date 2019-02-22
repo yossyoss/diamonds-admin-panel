@@ -37,7 +37,7 @@ const ELEMENT_DATA = [
   styleUrls: ["./stores.component.css"]
 })
 export class StoresComponent implements OnInit {
-  displayedColumns: string[] = ["name", "city", "state","total"];
+  displayedColumns: string[] = ["name", "city", "state", "total"];
   dataSource: any = new MatTableDataSource(ELEMENT_DATA);
   @ViewChild(MatSort) sort: MatSort;
 
@@ -51,7 +51,9 @@ export class StoresComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
+  do(e) {
+    console.log(e);
+  }
   private loadAllStores() {
     this.statisticsService
       .getAllStoresVideos(1, "2019-01-01", "2019-02-20")

@@ -1,39 +1,48 @@
-<div>
-  Select date range:
-  <!-- <p-calendar
-    [(ngModel)]="rangeDates"
-    selectionMode="range"
-    showButtonBar="true"
-    [readonlyInput]="true"
-    (onClose)="onClose($event)"
-    (onSelect)="onSelect($event)"
-    dateFormat="mm/dd/yy"
-    [showIcon]="true"
-  ></p-calendar> -->
-  <mat-form-field>
-    <input (click)=onselect()
-      matInput
-      [matDatepicker]="picker"
-      (focus)="picker.open()"
-      placeholder="from date"
-    />
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field>
-    <input
-      matInput
-      [matDatepicker]="picker2"
-      (focus)="picker2.open()"
-      placeholder="to date"
-    />
-    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-    <mat-datepicker #picker2></mat-datepicker>
-  </mat-form-field>
-  <!-- <mat-chip-list>
-    <mat-chip color="primary" selected>last week</mat-chip>
-    <mat-chip color="primary" selected>last month</mat-chip>
-    <mat-chip color="primary" selected>last 3 month</mat-chip>
-    <mat-chip color="primary" selected>last year</mat-chip>
-  </mat-chip-list> -->
+<div class="filter-row">
+  <label>Select date range:</label>
+  <span class="range range-from  ml-2">
+    <mat-form-field>
+      <input
+        matInput
+        [(ngModel)]="startDate"
+        [matDatepicker]="picker"
+        (focus)="picker.open()"
+        placeholder="from date"
+        (dateChange)="onselect($event,'from')"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </span>
+  <span class="ml-2 mr-2">-</span>
+  <span class="range range-to ml-2">
+    <mat-form-field>
+      <input
+        matInput
+        [(ngModel)]="endDate"
+        [matDatepicker]="picker2"
+        (focus)="picker2.open()"
+        (dateChange)="onselect($event,'to')"
+        placeholder="to date"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+  </span>
+  <span class="range ml-4">
+    <mat-chip-list>
+      <mat-chip color="primary" selected (click)="setPrevWeek()"
+        >last week</mat-chip
+      >
+      <mat-chip color="primary" selected (click)="setPrevMonth(1)"
+        >last month</mat-chip
+      >
+      <mat-chip color="primary" selected (click)="setPrevMonth(3)"
+        >last 3 month</mat-chip
+      >
+      <mat-chip color="primary" selected (click)="setPrevYear()"
+        >last year</mat-chip
+      >
+    </mat-chip-list>
+  </span>
 </div>
