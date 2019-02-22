@@ -3,7 +3,6 @@ import {
   OnInit,
   ViewChild,
   EventEmitter,
-  Input,
   Output
 } from "@angular/core";
 import { MatDatepickerInputEvent } from "@angular/material";
@@ -13,19 +12,18 @@ import { MatDatepickerInputEvent } from "@angular/material";
   styleUrls: ["./filters-row.component.scss"]
 })
 export class FiltersRowComponent implements OnInit {
-  @ViewChild("picker") picker;
-  @ViewChild("picker2") picker2;
-  // startDate;
-  endDate = new Date();
-  startDate = new Date(
-    this.endDate.getFullYear(),
-    this.endDate.getMonth(),
-    this.endDate.getDate() - 7
-  );
+  // @ViewChild("picker") picker;
+  // @ViewChild("picker2") picker2;
 
-  @Output() dateChange = new EventEmitter<any>();
+  endDate: Date = new Date();
+  startDate: Date = new Date(new Date().getFullYear(), 0, 1);
+
+  @Output() dateChange = new EventEmitter<Object>();
   constructor() {}
-  onselect(date?: any, action?: string) {
+  ngOnInit() {
+    this.dateChange.emit({ from: this.startDate, to: this.endDate });
+  }
+  onselect(date?: MatDatepickerInputEvent<Date>, action?: string) {
     if (action) {
       if (action === "to") {
         this.endDate = date.value;
@@ -43,32 +41,32 @@ export class FiltersRowComponent implements OnInit {
       this.startDate = temp;
     }
   }
-  setPrevWeek() {
+  setDate(prev: number) {
     this.endDate = new Date();
-    this.startDate = new Date(
-      this.endDate.getFullYear(),
-      this.endDate.getMonth(),
-      this.endDate.getDate() - 7
-    );
+    switch (prev) {
+      case 7:
+        this.startDate = new Date(
+          this.endDate.getFullYear(),
+          this.endDate.getMonth(),
+          this.endDate.getDate() - 7
+        );
+        break;
+      case 3:
+      case 1:
+        this.startDate = new Date(
+          this.endDate.getFullYear(),
+          this.endDate.getMonth() - prev,
+          this.endDate.getDate()
+        );
+        break;
+      case 12:
+        this.startDate = new Date(
+          this.endDate.getFullYear() - 1,
+          this.endDate.getMonth(),
+          this.endDate.getDate()
+        );
+        break;
+    }
     this.onselect();
   }
-  setPrevMonth(prev) {
-    this.endDate = new Date();
-    this.startDate = new Date(
-      this.endDate.getFullYear(),
-      this.endDate.getMonth() - prev,
-      this.endDate.getDate()
-    );
-    this.onselect();
-  }
-  setPrevYear() {
-    this.endDate = new Date();
-    this.startDate = new Date(
-      this.endDate.getFullYear() - 1,
-      this.endDate.getMonth(),
-      this.endDate.getDate()
-    );
-    this.onselect();
-  }
-  ngOnInit() {}
 }

@@ -31,16 +31,16 @@
   </span>
   <span class="range ml-4">
     <mat-chip-list>
-      <mat-chip color="primary" selected (click)="setPrevWeek()"
+      <mat-chip color="primary" selected (click)="setDate(7)"
         >last week</mat-chip
       >
-      <mat-chip color="primary" selected (click)="setPrevMonth(1)"
+      <mat-chip color="primary" selected (click)="setDate(1)"
         >last month</mat-chip
       >
-      <mat-chip color="primary" selected (click)="setPrevMonth(3)"
+      <mat-chip color="primary" selected (click)="setDate(3)"
         >last 3 month</mat-chip
       >
-      <mat-chip color="primary" selected (click)="setPrevYear()"
+      <mat-chip color="primary" selected (click)="setDate(12)"
         >last year</mat-chip
       >
     </mat-chip-list>
