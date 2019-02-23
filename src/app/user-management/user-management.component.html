@@ -36,10 +36,18 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Store</th>
       <td mat-cell *matCellDef="let element">
         <a
-          routerLink="/statistics/store/{{ element.store?.id }}"
+          routerLink="/statistics/stores/{{ element.store?.id }}"
           routerLinkActive="active-link"
           >{{ element.store?.name }}</a
         >
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let element">
+        <!-- <button mat-button></button> -->
+        <i class="pi pi-pencil action" (click)="editUser(element.id)"></i>
+        <i class="pi pi-trash action ml-2" (click)="removeUser(element.username)"></i>
       </td>
     </ng-container>
 

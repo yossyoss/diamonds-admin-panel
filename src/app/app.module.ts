@@ -17,7 +17,6 @@ import { HomeComponent } from "./home";
 import { LoginComponent } from "./login";
 import { JewelleryStatisticsComponent } from "./jewellery-statistics";
 import { SalesAndStoreStatisticsComponent } from "./sales-and-store-statistics";
-import { StoreStatisticsComponent } from "./store-statistics/store-statistics.component";
 import { StoresComponent } from "./stores/stores.component";
 import { FiltersRowComponent } from "./filters-row/filters-row.component";
 import {
@@ -122,7 +121,6 @@ import { CalendarModule } from "primeng/calendar";
     JewelleryStatisticsComponent,
     SalesAndStoreStatisticsComponent,
     UserManagementComponent,
-    StoreStatisticsComponent,
     FiltersRowComponent,
     StoresComponent
   ],

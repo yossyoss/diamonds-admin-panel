@@ -1,35 +1,8 @@
-import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 
-// import { TableModule } from "primeng/table";
-import { Customer } from "@app/_models";
-import { CustomersService, StatisticsService } from "@app/_services";
+import { StatisticsService, UtilityService } from "@app/_services";
 
 import { MatSort, MatTableDataSource } from "@angular/material";
-
-const ELEMENT_DATA = [
-  {
-    store: {
-      id: 10,
-      name: "Concord Mills",
-      city: "Concord",
-      state: "North Carolina"
-    },
-    day: "2/16/19",
-    total: 7,
-    jewelryDTO: null
-  },
-  {
-    store: {
-      id: 13,
-      name: "Park Place",
-      city: "Tucson",
-      state: "Arizona"
-    },
-    day: "2/18/19",
-    total: 2,
-    jewelryDTO: null
-  }
-];
 
 @Component({
   selector: "stores",
@@ -38,28 +11,38 @@ const ELEMENT_DATA = [
 })
 export class StoresComponent implements OnInit {
   displayedColumns: string[] = ["name", "city", "state", "total"];
-  dataSource: any = new MatTableDataSource(ELEMENT_DATA);
+  dataSource: any = new MatTableDataSource();
+  from: string;
+  to: string;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private statisticsService: StatisticsService) {}
+  constructor(
+    private statisticsService: StatisticsService,
+    private utilityService: UtilityService
+  ) {}
 
   ngOnInit() {
-    this.loadAllStores();
     this.dataSource.sort = this.sort;
-    // this.dataSource = this.users;
   }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  do(e) {
-    console.log(e);
+  onDateChange(e) {
+    if (e) {
+      this.from = e.from;
+      this.to = e.to;
+      this.loadAllStores();
+    }
   }
   private loadAllStores() {
     this.statisticsService
-      .getAllStoresVideos(1, "2019-01-01", "2019-02-20")
-      .subscribe(users => {
-        // this.dataSource = users;
+      .getAllStoresVideos(
+        1,
+        this.utilityService.convertDate(this.from),
+        this.utilityService.convertDate(this.to)
+      )
+      .subscribe(list => {
+        this.dataSource = list;
       });
-    this.dataSource = ELEMENT_DATA; //users;
   }
 }

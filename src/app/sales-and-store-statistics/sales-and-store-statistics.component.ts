@@ -1,14 +1,17 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { StatisticsService } from "@app/_services";
+import { StatisticsService, UtilityService } from "@app/_services";
 
 import { MessageService } from "primeng/api";
+import { log } from "util";
 @Component({
   templateUrl: "./sales-and-store-statistics.component.html",
   styleUrls: ["./sales-and-store-statistics.component.css"]
 })
 export class SalesAndStoreStatisticsComponent implements OnInit {
   data: any;
+  from: string;
+  to: string;
   dataForLineChart: any;
   salesMan: any;
   options = {
@@ -17,20 +20,68 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
     }
   };
   id: number;
+  path: string;
   rangeDates: Date;
   constructor(
+    private utilityService: UtilityService,
     private messageService: MessageService,
     private route: ActivatedRoute,
     private statisticsService: StatisticsService
   ) {}
 
   ngOnInit() {
+    console.log(this.route.snapshot.url[1].path);
+
     this.id = this.route.snapshot.params.id;
-    this.statisticsService.getSalesPersonDataById(this.id).subscribe(data => {
-      this.data = this.calculatePieChart(data);
-      this.dataForLineChart = this.calculateLineChart(data);
-    });
-    const data = [
+    this.path = this.route.snapshot.url[1].path;
+  }
+  onDateChange(e) {
+    if (e) {
+      this.from = e.from;
+      this.to = e.to;
+      this.getStatisticsByDate();
+    }
+  }
+
+  private getStatisticsByDate() {
+    if (this.path === "sales") {
+      this.statisticsService
+        .getSalesPersonDataByDateRange(
+          this.id,
+          this.utilityService.convertDate(this.from),
+          this.utilityService.convertDate(this.to)
+        )
+        .subscribe(data => {
+          let temp = this.useSalesMock();
+          this.salesMan = temp[0].user;
+          this.data = this.utilityService.calculatePieChart(temp);
+          this.dataForLineChart = this.utilityService.calculateLineChart(temp);
+        });
+    } else {
+      this.statisticsService
+        .getStoreVideosByDate(
+          1,
+          this.id,
+          this.utilityService.convertDate(this.from),
+          this.utilityService.convertDate(this.to)
+        )
+        .subscribe(data => {
+          this.dataForLineChart = this.utilityService.calculateLineChart(data);
+        });
+      this.statisticsService
+        .getStoreVideosGroupByJewelry(
+          1,
+          this.id,
+          this.utilityService.convertDate(this.from),
+          this.utilityService.convertDate(this.to)
+        )
+        .subscribe(data => {
+          this.data = this.utilityService.calculatePieChart(data);
+        });
+    }
+  }
+  useSalesMock() {
+    return [
       {
         user: {
           id: 12,
@@ -116,98 +167,9 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
         total: 1
       }
     ];
-
-    this.salesMan = data[0].user;
-    console.log(this.salesMan);
-    this.data = this.calculatePieChart(data);
-    this.dataForLineChart = this.calculateLineChart(data);
-  }
-  update(event: Event) {
-    this.data = []; //create new data
-  }
-
-  dynamicColors() {
-    var r = Math.floor(Math.random() * 255);
-    var g = Math.floor(Math.random() * 255);
-    var b = Math.floor(Math.random() * 255);
-    return "rgb(" + r + "," + g + "," + b + ")";
-  }
-  calculatePieChart(data) {
-    let newObj = {};
-    let primengObj = {
-      labels: [],
-      datasets: [
-        {
-          data: [],
-          backgroundColor: [],
-          hoverBackgroundColor: []
-        }
-      ]
-    };
-    data.forEach(user => {
-      if (newObj[user.jewelryDTO.barcode]) {
-        newObj[user.jewelryDTO.barcode] += user.total;
-      } else {
-        newObj[user.jewelryDTO.barcode] = user.total;
-      }
-    });
-    for (const key in newObj) {
-      if (newObj.hasOwnProperty(key)) {
-        const total = newObj[key];
-        primengObj.labels.push(key);
-        primengObj.datasets[0].data.push(total);
-        let color = this.dynamicColors();
-        primengObj.datasets[0].backgroundColor.push(color);
-        primengObj.datasets[0].hoverBackgroundColor.push(color);
-      }
-    }
-    return primengObj;
-  }
-  calculateLineChart(data) {
-    let newObj = {};
-    let primengObj = {
-      labels: [],
-      datasets: [
-        {
-          label: "Videos sent: ",
-          data: [],
-          fill: true,
-          borderColor: "#4bc0c0"
-        }
-      ],
-      options: {
-        label: {
-          display: false
-        },
-        tooltips: {
-          callbacks: {
-            label: function(tooltipItem) {
-              console.log(tooltipItem);
-              return tooltipItem.yLabel;
-            }
-          }
-        }
-      }
-    };
-    data.forEach(user => {
-      if (newObj[user.day]) {
-        newObj[user.day] += user.total;
-      } else {
-        newObj[user.day] = user.total;
-      }
-    });
-    for (const key in newObj) {
-      if (newObj.hasOwnProperty(key)) {
-        const total = newObj[key];
-        primengObj.labels.push(key);
-        primengObj.datasets[0].data.push(total);
-      }
-    }
-    return primengObj;
   }
 }
 // To-do
 // 1.adding array of colors
 // 2.adding logic to display just relevant graph
-// 3.filters
 // 4.make it responsive by adding class
