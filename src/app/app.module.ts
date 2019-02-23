@@ -61,6 +61,7 @@ import { ChartModule } from "primeng/chart";
 import { MessageService } from "primeng/api";
 import { ToastModule } from "primeng/toast";
 import { CalendarModule } from "primeng/calendar";
+import { AddEditUserComponent } from "./add-edit-user/add-edit-user.component";
 
 @NgModule({
   imports: [
@@ -122,8 +123,11 @@ import { CalendarModule } from "primeng/calendar";
     SalesAndStoreStatisticsComponent,
     UserManagementComponent,
     FiltersRowComponent,
-    StoresComponent
+    StoresComponent,
+    AddEditUserComponent
   ],
+  entryComponents: [AddEditUserComponent],
+
   providers: [
     MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

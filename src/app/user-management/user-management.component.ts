@@ -1,6 +1,12 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { UsersService } from "@app/_services";
-import { MatSort, MatTableDataSource } from "@angular/material";
+import {
+  MatSort,
+  MatTableDataSource,
+  MatDialog,
+  MAT_DIALOG_DATA
+} from "@angular/material";
+import { AddEditUserComponent } from "../add-edit-user/add-edit-user.component";
 @Component({
   templateUrl: "./user-management.component.html",
   styleUrls: ["./user-management.component.scss"]
@@ -17,7 +23,7 @@ export class UserManagementComponent implements OnInit {
   dataSource: any; // = new MatTableDataSource(ELEMENT_DATA);
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private usersService: UsersService) {}
+  constructor(private usersService: UsersService, public dialog: MatDialog) {}
 
   // users: any;
   ngOnInit() {
@@ -26,7 +32,12 @@ export class UserManagementComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
+  openDialog() {
+    let dialogRef = this.dialog.open(AddEditUserComponent, {
+      width: '600px',
+      data: {}
+    });
+  }
   private loadAllUsers(manufacturerId) {
     this.usersService
       .getAllUsersByManufacturer(manufacturerId)
@@ -34,8 +45,19 @@ export class UserManagementComponent implements OnInit {
         this.dataSource = users;
       });
   }
-  editUser(userId) {
-    console.log(userId);
+  editUser(user) {
+    console.log(user);
+    let dialogRef =  this.dialog.open(AddEditUserComponent, {
+      width: '600px',
+      data: {
+        user
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed',result);
+      // this.usersService.editUser()
+    
+    });
   }
   removeUser(username) {
     console.log(username);

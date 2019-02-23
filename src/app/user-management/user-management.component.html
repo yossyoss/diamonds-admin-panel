@@ -7,7 +7,12 @@
         placeholder="Filter"
       />
     </mat-form-field>
-    <button class="table-header-btn" mat-raised-button color="primary">
+    <button
+      class="table-header-btn"
+      mat-raised-button
+      color="primary"
+      (click)="openDialog()"
+    >
       Add new User
     </button>
   </div>
@@ -46,8 +51,11 @@
       <th mat-header-cell *matHeaderCellDef>Action</th>
       <td mat-cell *matCellDef="let element">
         <!-- <button mat-button></button> -->
-        <i class="pi pi-pencil action" (click)="editUser(element.id)"></i>
-        <i class="pi pi-trash action ml-2" (click)="removeUser(element.username)"></i>
+        <i class="pi pi-pencil action" (click)="editUser(element)"></i>
+        <i
+          class="pi pi-trash action ml-2"
+          (click)="removeUser(element.username)"
+        ></i>
       </td>
     </ng-container>
 
