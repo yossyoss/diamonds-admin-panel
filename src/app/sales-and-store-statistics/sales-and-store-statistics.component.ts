@@ -52,10 +52,10 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
           this.utilityService.convertDate(this.to)
         )
         .subscribe(data => {
-          let temp = this.useSalesMock();
-          this.salesMan = temp[0].user;
-          this.data = this.utilityService.calculatePieChart(temp);
-          this.dataForLineChart = this.utilityService.calculateLineChart(temp);
+          let dataToUSe = this.useSalesMock();
+          this.salesMan = dataToUSe[0].user;
+          this.data = this.utilityService.calculatePieChart(dataToUSe);
+          this.dataForLineChart = this.utilityService.calculateLineChart(dataToUSe);
         });
     } else {
       this.statisticsService
@@ -171,5 +171,4 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
 }
 // To-do
 // 1.adding array of colors
-// 2.adding logic to display just relevant graph
 // 4.make it responsive by adding class

@@ -120,8 +120,7 @@ export class JewelleryStatisticsComponent implements OnInit {
     this.videoLink = data[0] ? data[0].jewelryDTO.videoLink : null;
     this.dataForLineChart = this.utilityService.calculateLineChart(data);
   }
-  
-  
+
   onDateChange(e) {
     if (e) {
       this.from = e.from;
@@ -140,7 +139,7 @@ export class JewelleryStatisticsComponent implements OnInit {
       .subscribe(data => {
         // TODO - remove comments and remove mock
         // this.videoLink = data[0] ? data[0].jewelryDTO.videoLink : null;
-        // this.dataForLineChart = this.calculateLineChart(data);
+        // this.dataForLineChart = this.utilityService.calculateLineChart(data);
       });
   }
 }
