@@ -1,34 +1,64 @@
 <h1 mat-dialog-title>{{ user ? "Edit User" : "Add User" }}</h1>
 <div mat-dialog-content>
   <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="form-container">
-      <mat-form-field>
-          <input matInput placeholder="First Name" type="text" formControlName="firstName"  [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
-          <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-              <div *ngIf="f.firstName.errors.required">First Name is required</div>
-          </div>
-      </mat-form-field>
-      <mat-form-field>
-          <input matInput type="text" placeholder="Last Name" formControlName="lastName"  [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
-          <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-              <div *ngIf="f.lastName.errors.required">Last Name is required</div>
-          </div>
-      </mat-form-field>
-      <mat-form-field>
-          <input matInput type="text" placeholder="username" formControlName="username"  [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-              <div *ngIf="f.username.errors.required">username is required</div>
-          </div>
-      </mat-form-field>
-      <mat-form-field>
-          <mat-select placeholder="role" formControlName="role">
-              <mat-option value="SALES">Sales</mat-option>
-              <mat-option value="ADMIN">Admin</mat-option>
-            </mat-select>
-          <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
-              <div *ngIf="f.role.errors.required">role is required</div>
-          </div>
-      </mat-form-field>
-      <!-- <mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="First Name"
+        type="text"
+        formControlName="firstName"
+        [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
+      />
+      <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+        <div *ngIf="f.firstName.errors.required">First Name is required</div>
+      </div>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Last Name"
+        formControlName="lastName"
+        [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
+      />
+      <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+        <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+      </div>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="username"
+        formControlName="username"
+        [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+      />
+      <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+        <div *ngIf="f.username.errors.required">username is required</div>
+      </div>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+        [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+      />
+      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+        <div *ngIf="f.password.errors.required">password is required</div>
+      </div>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="role" formControlName="role">
+        <mat-option value="SALES">Sales</mat-option>
+        <mat-option value="ADMIN">Admin</mat-option>
+      </mat-select>
+      <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
+        <div *ngIf="f.role.errors.required">role is required</div>
+      </div>
+    </mat-form-field>
+    <!-- <mat-form-field>
           <input matInput type="text" placeholder="store" formControlName="store" [ngClass]="{ 'is-invalid': submitted && f.store.errors }" />
           <div *ngIf="submitted && f.store.errors" class="invalid-feedback">
               <div *ngIf="f.store.errors.required">store is required</div>
@@ -37,7 +67,9 @@
   </form>
 </div>
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close (click)="onNoClick()">Cancel</button>
-    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit()">{{ user ? "Edit" : "Add" }}</button>
-  </mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="onNoClick()">Cancel</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button cdkFocusInitial (click)="onSubmit()">
+    {{ user ? "Edit" : "Add" }}
+  </button>
+</mat-dialog-actions>

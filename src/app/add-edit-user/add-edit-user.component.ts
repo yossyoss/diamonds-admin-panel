@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material";
 import { UsersService } from "@app/_services";
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from "@angular/material";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 @Component({
   selector: "app-add-edit-user",
@@ -17,9 +17,7 @@ export class AddEditUserComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private usersService: UsersService,
     private formBuilder: FormBuilder
-  ) {
-    
-  }
+  ) {}
 
   ngOnInit() {
     if (this.data.user) {
@@ -30,6 +28,7 @@ export class AddEditUserComponent implements OnInit {
           lastName: [this.user.lastName, Validators.required],
           username: [this.user.username, [Validators.required]],
           role: [this.user.role, [Validators.required]],
+          password: [this.user.password, [Validators.required]]
           // store: [this.user.store.name, [Validators.required]]
         }
         // {
@@ -37,22 +36,21 @@ export class AddEditUserComponent implements OnInit {
         // }
       );
       // this.usersService.
-    }else{
+    } else {
       this.editForm = this.formBuilder.group(
         {
-          firstName: ['', Validators.required],
-          lastName: ['', Validators.required],
-          username: ['', [Validators.required]],
-          role: ['', [Validators.required]],
+          firstName: ["", Validators.required],
+          lastName: ["", Validators.required],
+          username: ["", [Validators.required]],
+          role: ["", [Validators.required]],
+          password: ["", [Validators.required]]
           // store: ['', [Validators.required]]
         }
         // {
         //     validator: MustMatch('password', 'confirmPassword')
         // }
       );
-
     }
-    
   }
   // convenience getter for easy access to form fields
   get f() {
@@ -63,7 +61,7 @@ export class AddEditUserComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.editForm.invalid) {
-      console.log('form is invalid')
+      console.log("form is invalid");
       this.dialogRef.disableClose = true;
       return;
     }
