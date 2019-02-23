@@ -62,7 +62,6 @@ export class AddEditUserComponent implements OnInit {
     // stop here if form is invalid
     if (this.editForm.invalid) {
       console.log("form is invalid");
-      this.dialogRef.disableClose = true;
       return;
     }
 
@@ -70,6 +69,6 @@ export class AddEditUserComponent implements OnInit {
     this.dialogRef.close(this.editForm.value);
   }
   onNoClick(): void {
-    this.dialogRef.close();
+    console.log("form is close");
   }
 }

@@ -39,10 +39,12 @@ export class UserManagementComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log("The dialog was closed", result);
-      let manufacturerId = 1;
-      this.usersService.addUser(result, manufacturerId).subscribe(res => {
-        this.loadAllUsers(1);
-      });
+      if (result) {
+        let manufacturerId = 1;
+        this.usersService.addUser(result, manufacturerId).subscribe(res => {
+          this.loadAllUsers(1);
+        });
+      }
     });
   }
   private loadAllUsers(manufacturerId) {
@@ -62,11 +64,13 @@ export class UserManagementComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log("The dialog was closed", result);
-      let manufacturerId = 1;
-      this.usersService.updateUser(result, manufacturerId).subscribe(res => {
-        console.log(res);
-        this.loadAllUsers(1);
-      });
+      if (result) {
+        let manufacturerId = 1;
+        this.usersService.updateUser(result, manufacturerId).subscribe(res => {
+          console.log(res);
+          this.loadAllUsers(1);
+        });
+      }
     });
   }
   removeUser(username) {
