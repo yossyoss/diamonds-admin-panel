@@ -34,8 +34,15 @@ export class UserManagementComponent implements OnInit {
   }
   openDialog() {
     let dialogRef = this.dialog.open(AddEditUserComponent, {
-      width: '600px',
+      width: "600px",
       data: {}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("The dialog was closed", result);
+      let manufacturerId = 1;
+      this.usersService.updateUser(result, manufacturerId).subscribe(res => {
+        console.log(res);
+      });
     });
   }
   private loadAllUsers(manufacturerId) {
@@ -47,16 +54,18 @@ export class UserManagementComponent implements OnInit {
   }
   editUser(user) {
     console.log(user);
-    let dialogRef =  this.dialog.open(AddEditUserComponent, {
-      width: '600px',
+    let dialogRef = this.dialog.open(AddEditUserComponent, {
+      width: "600px",
       data: {
         user
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed',result);
-      // this.usersService.editUser()
-    
+      console.log("The dialog was closed", result);
+      let manufacturerId = 1;
+      this.usersService.updateUser(result, manufacturerId).subscribe(res => {
+        console.log(res);
+      });
     });
   }
   removeUser(username) {
