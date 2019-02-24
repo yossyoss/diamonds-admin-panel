@@ -52,10 +52,12 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
           this.utilityService.convertDate(this.to)
         )
         .subscribe(data => {
-          let dataToUSe = this.useSalesMock();
-          this.salesMan = dataToUSe[0].user;
+          let dataToUSe = data; //this.useSalesMock();
+          this.salesMan = dataToUSe[0] ? dataToUSe[0].user : null;
           this.data = this.utilityService.calculatePieChart(dataToUSe);
-          this.dataForLineChart = this.utilityService.calculateLineChart(dataToUSe);
+          this.dataForLineChart = this.utilityService.calculateLineChart(
+            dataToUSe
+          );
         });
     } else {
       this.statisticsService

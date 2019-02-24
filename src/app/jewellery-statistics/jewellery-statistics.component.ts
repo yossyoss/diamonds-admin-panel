@@ -27,7 +27,7 @@ export class JewelleryStatisticsComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.params.id;
-    this.useMock();
+    // this.useMock();
   }
   useMock() {
     const data = [
@@ -138,8 +138,8 @@ export class JewelleryStatisticsComponent implements OnInit {
       )
       .subscribe(data => {
         // TODO - remove comments and remove mock
-        // this.videoLink = data[0] ? data[0].jewelryDTO.videoLink : null;
-        // this.dataForLineChart = this.utilityService.calculateLineChart(data);
+        this.videoLink = data[0] ? data[0].jewelryDTO.videoLink : null;
+        this.dataForLineChart = this.utilityService.calculateLineChart(data);
       });
   }
 }
