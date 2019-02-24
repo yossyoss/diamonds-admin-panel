@@ -119,7 +119,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     "barcode",
     "sales_person"
   ];
-  dataSource: any = new MatTableDataSource(ELEMENT_DATA);
+  dataSource: any = new MatTableDataSource();
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private customersService: CustomersService) {}
