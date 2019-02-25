@@ -2,3 +2,7 @@
     display: flex;
     flex-direction: column;
   }
+  .err-msg{
+    margin-right: 10%;
+    color: red;
+  }

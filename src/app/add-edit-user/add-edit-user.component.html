@@ -58,6 +58,16 @@
         <div *ngIf="f.role.errors.required">role is required</div>
       </div>
     </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="state" formControlName="state">
+        <span *ngFor="let state of states">
+          <mat-option [value]="state.abbr">{{ state.name }}</mat-option>
+        </span>
+      </mat-select>
+      <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+        <div *ngIf="f.state.errors.required">role is required</div>
+      </div>
+    </mat-form-field>
     <!-- <mat-form-field>
           <input matInput type="text" placeholder="store" formControlName="store" [ngClass]="{ 'is-invalid': submitted && f.store.errors }" />
           <div *ngIf="submitted && f.store.errors" class="invalid-feedback">
@@ -67,6 +77,9 @@
   </form>
 </div>
 <mat-dialog-actions align="end">
+  <span class="err-msg" *ngIf="submitted && editForm.invalid"
+    >The form is invalid</span
+  >
   <button mat-button mat-dialog-close (click)="onNoClick()">Cancel</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
   <button mat-button cdkFocusInitial (click)="onSubmit()">

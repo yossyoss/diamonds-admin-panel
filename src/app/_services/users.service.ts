@@ -38,7 +38,7 @@ export class UsersService {
     return this.http.delete(
       `${
         environment.apiUrl
-      }/users/deleteUser?username=${username}&manufacturerId=${manufacturerId}`
+      }/user/deleteUser?username=${username}&manufacturerId=${manufacturerId}`
     );
   }
 

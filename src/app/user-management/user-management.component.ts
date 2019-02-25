@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { UsersService } from "@app/_services";
+import { UsersService, StoresService } from "@app/_services";
 import {
   MatSort,
   MatTableDataSource,
@@ -22,8 +22,12 @@ export class UserManagementComponent implements OnInit {
   ];
   dataSource: any; // = new MatTableDataSource(ELEMENT_DATA);
   @ViewChild(MatSort) sort: MatSort;
-
-  constructor(private usersService: UsersService, public dialog: MatDialog) {}
+  states;
+  constructor(
+    private usersService: UsersService,
+    public dialog: MatDialog,
+    public storeService: StoresService
+  ) {}
 
   // users: any;
   ngOnInit() {
@@ -53,6 +57,7 @@ export class UserManagementComponent implements OnInit {
       .subscribe(users => {
         this.dataSource = users;
       });
+   
   }
   editUser(user) {
     console.log(user);

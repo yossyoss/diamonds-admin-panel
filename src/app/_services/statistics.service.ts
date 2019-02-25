@@ -10,15 +10,25 @@ export class StatisticsService {
   // ****************
   // Sales person API
   // ****************
-  getSalesPersonDataById(userId: number) {
+
+
+  getSalesPersonAllVideosGroupedByJewelry(userId: number, from: string, to: string) {
+    return this.http.get(
+      `${
+        environment.apiUrl
+      }/statistics/getSalesPersonAllVideosGroupedByJewelry?userId=${userId}&from=${from}&to=${to}`
+    );
+  }
+
+  getSalesPersonAllVideos(userId: number) {
     return this.http.get(
       `${
         environment.apiUrl
       }/statistics/getSalesPersonAllVideos?userId=${userId}`
     );
   }
-
-  getSalesPersonDataByDateRange(userId: number, from: string, to: string) {
+  
+  getSalesPersonVideosByDateRange(userId: number, from: string, to: string) {
     return this.http.get(
       `${
         environment.apiUrl

@@ -46,18 +46,23 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
   private getStatisticsByDate() {
     if (this.path === "sales") {
       this.statisticsService
-        .getSalesPersonDataByDateRange(
+        .getSalesPersonVideosByDateRange(
           this.id,
           this.utilityService.convertDate(this.from),
           this.utilityService.convertDate(this.to)
         )
         .subscribe(data => {
-          let dataToUSe = data; //this.useSalesMock();
-          this.salesMan = dataToUSe[0] ? dataToUSe[0].user : null;
-          this.data = this.utilityService.calculatePieChart(dataToUSe);
-          this.dataForLineChart = this.utilityService.calculateLineChart(
-            dataToUSe
-          );
+          this.dataForLineChart = this.utilityService.calculateLineChart(data);
+        });
+      this.statisticsService
+        .getSalesPersonAllVideosGroupedByJewelry(
+          this.id,
+          this.utilityService.convertDate(this.from),
+          this.utilityService.convertDate(this.to)
+        )
+        .subscribe(data => {
+          this.salesMan = data[0] ? data[0].user : null;
+          this.data = this.utilityService.calculatePieChart(data);
         });
     } else {
       this.statisticsService
