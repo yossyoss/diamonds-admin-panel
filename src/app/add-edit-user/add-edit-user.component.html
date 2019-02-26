@@ -37,18 +37,7 @@
         <div *ngIf="f.username.errors.required">username is required</div>
       </div>
     </mat-form-field>
-    <mat-form-field>
-      <input
-        matInput
-        type="password"
-        placeholder="Password"
-        formControlName="password"
-        [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
-      />
-      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-        <div *ngIf="f.password.errors.required">password is required</div>
-      </div>
-    </mat-form-field>
+
     <mat-form-field>
       <mat-select placeholder="role" formControlName="role">
         <mat-option value="SALES">Sales</mat-option>
@@ -61,11 +50,15 @@
     <mat-form-field>
       <mat-select placeholder="state" formControlName="state">
         <span *ngFor="let state of states">
-          <mat-option [value]="state.abbr">{{ state.name }}</mat-option>
+          <mat-option
+            [value]="state.abbr"
+            (onSelectionChange)="onChange(state)"
+            >{{ state.name }}</mat-option
+          >
         </span>
       </mat-select>
       <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
-        <div *ngIf="f.state.errors.required">role is required</div>
+        <div *ngIf="f.state.errors.required">state is required</div>
       </div>
     </mat-form-field>
     <!-- <mat-form-field>
@@ -74,6 +67,28 @@
               <div *ngIf="f.store.errors.required">store is required</div>
           </div>
       </mat-form-field> -->
+    <mat-form-field *ngIf="stores">
+      <mat-select placeholder="store" formControlName="store">
+        <span *ngFor="let store of stores">
+          <mat-option [value]="store.name">{{ store.name }}</mat-option>
+        </span>
+      </mat-select>
+      <div *ngIf="submitted && f.store.errors" class="invalid-feedback">
+        <div *ngIf="f.store.errors.required">store.name is required</div>
+      </div>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+        [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+      />
+      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+        <div *ngIf="f.password.errors.required">password is required</div>
+      </div>
+    </mat-form-field>
   </form>
 </div>
 <mat-dialog-actions align="end">

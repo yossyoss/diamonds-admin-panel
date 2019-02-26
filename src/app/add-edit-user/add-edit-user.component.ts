@@ -29,44 +29,76 @@ export class AddEditUserComponent implements OnInit {
       role: [],
       password: [],
       state: [],
-      store:[]
+      store: []
     });
+  }
+  onChange(state) {
+    const manufactureId = 1;
+    this.storesService
+      .getStoresByState(manufactureId, state.abbr)
+      .subscribe(stores => {
+        this.stores = stores;
+        this.editForm.patchValue({ store: stores });
+      });
   }
 
   ngOnInit() {
-    console.log("here");
     this.storesService.getAllStates().subscribe(res => {
       this.states = res;
 
       if (this.data.user) {
+        //editin user
         this.user = this.data.user;
-        this.editForm = this.formBuilder.group(
-          {
-            firstName: [this.user.firstName, Validators.required],
-            lastName: [this.user.lastName, Validators.required],
-            username: [this.user.username, [Validators.required]],
-            role: [this.user.role, [Validators.required]],
-            password: [this.user.password, [Validators.required]],
-            state: [this.states, [Validators.required]]
-          }
-          // {
-          //     validator: MustMatch('password', 'confirmPassword')
-          // }
-        );
-        // this.usersService.
+        const stroeName = this.user.store ? this.user.store.name : "";
+
+        const manufactureId = 1;
+        this.storesService
+          .getStoresByState(manufactureId, this.user.store.state)
+          .subscribe(stores => {
+            this.editForm = this.formBuilder.group({
+              firstName: [this.user.firstName, Validators.required],
+              lastName: [this.user.lastName, Validators.required],
+              username: [this.user.username, [Validators.required]],
+              role: [this.user.role, [Validators.required]],
+              password: [
+                this.user.password,
+                [Validators.required, Validators.minLength(4)]
+              ],
+              state: [this.states, [Validators.required]],
+              store: [stores, [Validators.required]]
+            });
+            this.editForm.controls["state"].setValue(this.user.store.state, {
+              onlySelf: true
+            });
+            this.editForm.controls["store"].setValue(this.user.store.name, {
+              onlySelf: true
+            });
+          });
+        // const manufactureId = 1;
+        // this.storesService
+        //   .getStoresByState(manufactureId, this.user.store.state)
+        //   .subscribe(stores => {
+        //     this.stores = stores;
+        //     this.editForm.patchValue({ store: stores });
+        //     this.editForm.controls["store"].setValue("test", {
+        //       onlySelf: true
+        //     });
+        //   });
+        console.log("stroeName", stroeName);
       } else {
+        //adding user
         this.editForm = this.formBuilder.group({
           firstName: ["", Validators.required],
           lastName: ["", Validators.required],
           username: ["", [Validators.required]],
           role: ["", [Validators.required]],
           password: ["", [Validators.required]],
-          state: ["", [Validators.required]]
+          state: ["", [Validators.required]],
+          store: ["", [Validators.required]]
         });
       }
     });
   }
-  do() {}
   // convenience getter for easy access to form fields
   get f() {
     return this.editForm.controls;
