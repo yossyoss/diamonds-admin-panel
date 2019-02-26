@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "@environments/environment";
+import { Observable } from "rxjs";
 @Injectable({
   providedIn: "root"
 })
@@ -11,8 +12,11 @@ export class StatisticsService {
   // Sales person API
   // ****************
 
-
-  getSalesPersonAllVideosGroupedByJewelry(userId: number, from: string, to: string) {
+  getSalesPersonAllVideosGroupedByJewelry(
+    userId: number,
+    from: string,
+    to: string
+  ) {
     return this.http.get(
       `${
         environment.apiUrl
@@ -27,7 +31,7 @@ export class StatisticsService {
       }/statistics/getSalesPersonAllVideos?userId=${userId}`
     );
   }
-  
+
   getSalesPersonVideosByDateRange(userId: number, from: string, to: string) {
     return this.http.get(
       `${
@@ -87,6 +91,12 @@ export class StatisticsService {
       `${
         environment.apiUrl
       }/statistics/getJewelryByDate?userId=${userId}&from=${from}&to=${to}`
+    );
+  }
+
+  findJewelry(barcode:number) :Observable<any> {
+    return this.http.get(
+      `${environment.apiUrl}/diamonds/findJewelry?barcode=${barcode}`
     );
   }
 }

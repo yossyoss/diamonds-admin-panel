@@ -20,6 +20,7 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
     }
   };
   id: number;
+  storeName: string;
   path: string;
   rangeDates: Date;
   constructor(
@@ -31,9 +32,17 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.route.snapshot.url[1].path);
+    console.log(this.route.snapshot.params);
 
     this.id = this.route.snapshot.params.id;
+
     this.path = this.route.snapshot.url[1].path;
+    if (this.path === "sales") {
+      this.salesMan = this.route.snapshot.params.name;
+      console.log(this.salesMan);
+    } else {
+      this.storeName = this.route.snapshot.params.name;
+    }
   }
   onDateChange(e) {
     if (e) {
@@ -52,7 +61,7 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
           this.utilityService.convertDate(this.to)
         )
         .subscribe(data => {
-          this.dataForLineChart = this.utilityService.calculateLineChart(data);
+          this.dataForLineChart = this.utilityService.calculateLineChart(data); //left side
         });
       this.statisticsService
         .getSalesPersonAllVideosGroupedByJewelry(
@@ -61,10 +70,11 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
           this.utilityService.convertDate(this.to)
         )
         .subscribe(data => {
-          this.salesMan = data[0] ? data[0].user : null;
-          this.data = this.utilityService.calculatePieChart(data);
+          console.log(data);
+
+          this.data = this.utilityService.calculatePieChart(data);//right side
         });
-    } else {
+    } else { // store scenario
       this.statisticsService
         .getStoreVideosByDate(
           1,
@@ -73,7 +83,7 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
           this.utilityService.convertDate(this.to)
         )
         .subscribe(data => {
-          this.dataForLineChart = this.utilityService.calculateLineChart(data);
+          this.dataForLineChart = this.utilityService.calculateLineChart(data);//left side
         });
       this.statisticsService
         .getStoreVideosGroupByJewelry(
@@ -83,7 +93,7 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
           this.utilityService.convertDate(this.to)
         )
         .subscribe(data => {
-          this.data = this.utilityService.calculatePieChart(data);
+          this.data = this.utilityService.calculatePieChart(data);//right side
         });
     }
   }

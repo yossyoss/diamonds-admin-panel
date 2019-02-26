@@ -26,12 +26,12 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: "statistics/sales/:id",
+    path: "statistics/sales/:id/name/:name",
     component: SalesAndStoreStatisticsComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: "statistics/stores/:id",
+    path: "statistics/stores/:id/name/:name",
     component: SalesAndStoreStatisticsComponent,
     canActivate: [AuthGuard]
   },

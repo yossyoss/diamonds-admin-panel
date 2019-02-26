@@ -137,8 +137,13 @@ export class JewelleryStatisticsComponent implements OnInit {
         this.utilityService.convertDate(this.to)
       )
       .subscribe(data => {
+        this.statisticsService
+          .findJewelry(this.id)
+          .subscribe(({ videoLink }) => {
+            this.videoLink = videoLink;
+          });
         // TODO - remove comments and remove mock
-        this.videoLink = data[0] ? data[0].jewelryDTO.videoLink : null;
+        // this.videoLink = data[0] ? data[0].jewelryDTO.videoLink : null;
         this.dataForLineChart = this.utilityService.calculateLineChart(data);
       });
   }

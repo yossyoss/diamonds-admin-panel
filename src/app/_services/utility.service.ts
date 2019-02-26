@@ -52,7 +52,24 @@ export class UtilityService {
         primengObj.datasets[0].hoverBackgroundColor.push(color);
       }
     }
+
+    if (!primengObj.labels.length) {
+      primengObj = this.setDefaultEmptyPieChart();
+    }
     return primengObj;
+  }
+  setDefaultEmptyPieChart() {
+    const newPrimengObj = {
+      labels: ["None"],
+      datasets: [
+        {
+          data: [1],
+          backgroundColor: ["#c5c5c5"],
+          hoverBackgroundColor: ["#c5c5c5"]
+        }
+      ]
+    };
+    return newPrimengObj;
   }
   calculateLineChart(data) {
     let newObj = {};
@@ -73,7 +90,6 @@ export class UtilityService {
         tooltips: {
           callbacks: {
             label: function(tooltipItem) {
-              console.log(tooltipItem);
               return tooltipItem.yLabel;
             }
           }
@@ -94,6 +110,7 @@ export class UtilityService {
         primengObj.datasets[0].data.push(total);
       }
     }
+
     return primengObj;
   }
   calculateBarChart(data) {
@@ -135,6 +152,32 @@ export class UtilityService {
         primengObj.labels.push(key);
         primengObj.datasets[0].data.push(total);
       }
+    }
+    if (!primengObj.labels.length) {
+      primengObj = {
+        labels: ["None"],
+        datasets: [
+          {
+            label: "Videos sent: ",
+            data: [1],
+            fill: true,
+            backgroundColor: "#c5c5c5",
+            borderColor: "#c5c5c5"
+          }
+        ],
+        options: {
+          label: {
+            display: false
+          },
+          tooltips: {
+            callbacks: {
+              label: function(tooltipItem) {
+                return tooltipItem.yLabel;
+              }
+            }
+          }
+        }
+      };
     }
     return primengObj;
   }
