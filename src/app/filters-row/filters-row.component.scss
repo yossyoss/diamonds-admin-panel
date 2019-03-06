@@ -4,6 +4,9 @@
 :host ::ng-deep .mat-chip {
   cursor: pointer;
 }
-.filter-row{
+.filter-row {
   text-align: center;
+}
+:host ::ng-deep .search {
+  background: #cecece !important;
 }

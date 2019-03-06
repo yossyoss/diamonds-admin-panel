@@ -31,19 +31,23 @@
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
   </span>
+
   <span class="range ml-4">
     <mat-chip-list>
+      <mat-chip (click)="setDate(999)" class="search"
+        >Search<i class="pi pi-search"></i></mat-chip
+      ><span class="ml-1 mr-1">|</span>
       <mat-chip color="primary" selected (click)="setDate(7)"
-        >last week</mat-chip
+        >Last Week</mat-chip
       >
       <mat-chip color="primary" selected (click)="setDate(1)"
-        >last month</mat-chip
+        >Last Month</mat-chip
       >
       <mat-chip color="primary" selected (click)="setDate(3)"
-        >last 3 month</mat-chip
+        >Last Three Month</mat-chip
       >
       <mat-chip color="primary" selected (click)="setDate(12)"
-        >last year</mat-chip
+        >Last Year</mat-chip
       >
     </mat-chip-list>
   </span>

@@ -15,14 +15,14 @@ export class FiltersRowComponent implements OnInit {
   // @ViewChild("picker") picker;
   // @ViewChild("picker2") picker2;
 
-  endDate: Date //= new Date();
-  startDate: Date //= new Date(new Date().getFullYear(), 0, 1);
+  endDate: Date; //= new Date();
+  startDate: Date; //= new Date(new Date().getFullYear(), 0, 1);
 
   @Output() dateChange = new EventEmitter<Object>();
   constructor() {}
   ngOnInit() {
-    this.setDate(7)
-    this.dateChange.emit({ from: this.startDate, to: this.endDate });
+    this.setDate(7);
+    // this.dateChange.emit({ from: this.startDate, to: this.endDate });
   }
   onselect(date?: MatDatepickerInputEvent<Date>, action?: string) {
     if (action) {
@@ -33,7 +33,6 @@ export class FiltersRowComponent implements OnInit {
       }
     }
     this.checkDateAndReplace();
-    this.dateChange.emit({ from: this.startDate, to: this.endDate });
   }
   checkDateAndReplace() {
     if (this.endDate < this.startDate) {
@@ -45,6 +44,9 @@ export class FiltersRowComponent implements OnInit {
   setDate(prev: number) {
     this.endDate = new Date();
     switch (prev) {
+      case 999:
+        this.dateChange.emit({ from: this.startDate, to: this.endDate });
+        break;
       case 7:
         this.startDate = new Date(
           this.endDate.getFullYear(),
@@ -68,6 +70,6 @@ export class FiltersRowComponent implements OnInit {
         );
         break;
     }
-    this.onselect();
+    this.dateChange.emit({ from: this.startDate, to: this.endDate });
   }
 }

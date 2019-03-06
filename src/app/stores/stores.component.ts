@@ -42,7 +42,7 @@ export class StoresComponent implements OnInit {
         this.utilityService.convertDate(this.to)
       )
       .subscribe(list => {
-        this.dataSource = list;
+        this.dataSource.data = list;
       });
   }
 }
