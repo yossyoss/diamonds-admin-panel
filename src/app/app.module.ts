@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 // import { MatButtonModule, MatCheckboxModule } from "@angular/material";
 
 // used to create fake backend
-// import { MatTableModule } from "@angular/material/table";
+import { MatTableModule } from "@angular/material/table";
 
 import { AppComponent } from "./app.component";
 import { routing } from "./app.routing";
@@ -22,7 +22,7 @@ import { FiltersRowComponent } from "./filters-row/filters-row.component";
 import {
   MatButtonModule,
   MatCheckboxModule,
-  MatTableModule,
+  // MatTableModule,
   MatInputModule,
   MatAutocompleteModule,
   MatBadgeModule,

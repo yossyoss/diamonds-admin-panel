@@ -30,17 +30,17 @@
 
     <!-- Date Column -->
     <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date video sent</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Video Sent</th>
       <td mat-cell *matCellDef="let element">
         {{ element.date | date: "dd/MM/yyyy" }}
       </td>
     </ng-container>
 
     <!-- Store Column -->
-    <ng-container matColumnDef="store">
+    <ng-container matColumnDef="storeName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Store</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.sales_person?.store }}
+        {{ element.storeName }}
       </td>
     </ng-container>
 
@@ -56,16 +56,15 @@
       </td>
     </ng-container>
     <!-- Sales person Column -->
-    <ng-container matColumnDef="sales_person">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Sales person</th>
+    <ng-container matColumnDef="sales_person_name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Sales Person</th>
       <td mat-cell *matCellDef="let element">
         <a
           routerLink="/statistics/sales/{{ element.sales_person?.id }}/name/{{
             element.sales_person?.firstName
           }} {{ element.sales_person?.lastName }}"
           routerLinkActive="active-link"
-          >{{ element.sales_person?.firstName }}
-          {{ element.sales_person?.lastName }}</a
+          >{{ element.sales_person_name }}</a
         >
       </td>
     </ng-container>
