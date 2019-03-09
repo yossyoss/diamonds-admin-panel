@@ -3,20 +3,32 @@
     <filters-row (dateChange)="onDateChange($event)"></filters-row>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-6 col-sm-12">
-    <h3 class="text-center">Total Videos Sent daily</h3>
+<!-- <kendo-pdf-export #pdf paperSize="A4" [landscape]="true"> -->
+<kendo-pdf-export #pdf paperSize="A4" [scale]="0.6" [landscape]="false">
+  <div class="row" id="myTableIdElementId">
+    <div class="col-md-6 col-sm-12">
+      <h3 class="text-center">Total Videos Sent daily</h3>
 
-    <p-chart
-      type="line"
-      [data]="dataForLineChart"
-      [options]="options"
-    ></p-chart>
-  </div>
-  <div class="col-md-6 col-sm-12">
-    <h3 class="text-center">Barcode: {{ id }}</h3>
-    <div class="text-center">
-      <video src="{{ videoLink }}" controls></video>
+      <p-chart
+        type="line"
+        [data]="dataForLineChart"
+        [options]="options"
+      ></p-chart>
+    </div>
+    <div class="col-md-6 col-sm-12">
+      <h3 class="text-center">Barcode: {{ id }}</h3>
+      <div class="text-center">
+        <video src="{{ videoLink }}" controls></video>
+      </div>
     </div>
   </div>
+</kendo-pdf-export>
+<!-- <button (click)="export()">Export</button> -->
+<div class="example-config">
+  <button mat-raised-button color="primary" (click)="pdf.saveAs('charts.pdf')">
+    Save As PDF...
+  </button>
+  <!-- <button type="button" class="k-button" (click)="excelexport.save()">
+    Export To Excel
+  </button> -->
 </div>

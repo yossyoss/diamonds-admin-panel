@@ -1,12 +1,16 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { StatisticsService, UtilityService } from "@app/_services";
-import { log } from "util";
+import { ExportAsService, ExportAsConfig } from "ngx-export-as";
 @Component({
   templateUrl: "./jewellery-statistics.component.html",
   styleUrls: ["./jewellery-statistics.component.css"]
 })
 export class JewelleryStatisticsComponent implements OnInit {
+  exportAsConfig: ExportAsConfig = {
+    type: "png", // the type you want to download
+    elementId: "myTableElementId" // the id of html/table element
+  };
   id: number;
   dataForLineChart: any;
   options = {
@@ -20,6 +24,7 @@ export class JewelleryStatisticsComponent implements OnInit {
   videoLink: string;
   invalidDates: Array<Date>;
   constructor(
+    private exportAsService: ExportAsService,
     private route: ActivatedRoute,
     private statisticsService: StatisticsService,
     private utilityService: UtilityService
@@ -28,6 +33,18 @@ export class JewelleryStatisticsComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.params.id;
     // this.useMock();
+  }
+  export() {
+    const exportAsConfig: ExportAsConfig = {
+      type: "pdf", // the type you want to download
+      elementId: "myTableIdElementId", // the id of html/table element,
+      options: {
+        // html-docx-js document options
+        orientation: "portrait"
+      }
+    };
+    // download the file using old school javascript method
+    this.exportAsService.save(exportAsConfig, "My File Name");
   }
   useMock() {
     const data = [

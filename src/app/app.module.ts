@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 // used to create fake backend
 import { MatTableModule } from "@angular/material/table";
-
+import { ExportAsModule } from "ngx-export-as";
 import { AppComponent } from "./app.component";
 import { routing } from "./app.routing";
 import { AlertComponent } from "./_components";
@@ -63,6 +63,10 @@ import { ToastModule } from "primeng/toast";
 import { CalendarModule } from "primeng/calendar";
 import { AddEditUserComponent } from "./add-edit-user/add-edit-user.component";
 
+import { PDFExportModule } from "@progress/kendo-angular-pdf-export";
+
+import { ExcelExportModule } from "@progress/kendo-angular-excel-export";
+
 @NgModule({
   imports: [
     ToastModule,
@@ -112,7 +116,10 @@ import { AddEditUserComponent } from "./add-edit-user/add-edit-user.component";
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatTreeModule
+    MatTreeModule,
+    ExportAsModule,
+    PDFExportModule,
+    ExcelExportModule
   ],
   declarations: [
     AppComponent,

@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { StatisticsService, UtilityService } from "@app/_services";
 
 import { MatSort, MatTableDataSource } from "@angular/material";
+import { log } from "util";
 
 @Component({
   selector: "stores",
@@ -27,6 +28,8 @@ export class StoresComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log(this.dataSource.data);
+
     this.dataSource.sort = this.sort;
   }
   applyFilter(filterValue: string) {
@@ -37,6 +40,7 @@ export class StoresComponent implements OnInit {
       this.from = e.from;
       this.to = e.to;
       this.loadAllStores();
+      console.log(this.sort);
     }
   }
   private loadAllStores() {
