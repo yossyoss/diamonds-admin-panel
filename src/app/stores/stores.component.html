@@ -18,7 +18,7 @@
           The actual rendered columns are set as a property on the row definition" -->
 
     <!-- Name Column -->
-    <ng-container matColumnDef="name">
+    <ng-container matColumnDef="storename">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Store Name</th>
       <td mat-cell *matCellDef="let element">
         <a
@@ -26,19 +26,19 @@
             element.store?.name
           }}"
           routerLinkActive="active-link"
-          >{{ element.store?.name }}</a
+          >{{ element.storename }}</a
         >
       </td>
     </ng-container>
     <!-- City Column -->
-    <ng-container matColumnDef="city">
+    <ng-container matColumnDef="storecity">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>City</th>
-      <td mat-cell *matCellDef="let element">{{ element.store?.city }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.storecity }}</td>
     </ng-container>
     <!-- State Column -->
-    <ng-container matColumnDef="state">
+    <ng-container matColumnDef="storestate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
-      <td mat-cell *matCellDef="let element">{{ element.store?.state }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.storestate }}</td>
     </ng-container>
 
     <!-- Total Column -->

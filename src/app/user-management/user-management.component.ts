@@ -20,7 +20,7 @@ export class UserManagementComponent implements OnInit {
     "store",
     "action"
   ];
-  dataSource: any; // = new MatTableDataSource(ELEMENT_DATA);
+  dataSource: any = new MatTableDataSource(); // = new MatTableDataSource(ELEMENT_DATA);
   @ViewChild(MatSort) sort: MatSort;
   states;
   constructor(
@@ -55,9 +55,9 @@ export class UserManagementComponent implements OnInit {
     this.usersService
       .getAllUsersByManufacturer(manufacturerId)
       .subscribe(users => {
-        this.dataSource = users;
+        this.dataSource.data = users;
+        this.dataSource.sort = this.sort;
       });
-   
   }
   editUser(user) {
     console.log(user);

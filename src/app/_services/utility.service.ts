@@ -4,6 +4,7 @@ import { Injectable } from "@angular/core";
   providedIn: "root"
 })
 export class UtilityService {
+  coloerdObject = {};
   constructor() {}
   convertDate(date) {
     let d = new Date(date),
@@ -21,6 +22,24 @@ export class UtilityService {
     var g = Math.floor(Math.random() * 255);
     var b = Math.floor(Math.random() * 255);
     return "rgb(" + r + "," + g + "," + b + ")";
+  }
+  getStaticColors(i) {
+    const coloredArr = [
+      "#4bc0c0",
+      "#c0caf1",
+      "#e8a1d5",
+      "#eca068",
+      "#ecdd68",
+      "#beec68",
+      "#68ec9e",
+      "#68e5ec",
+      "#6890ec",
+      "#9068ec",
+      "#e568ec",
+      "#ec68b0"
+    ];
+    if (coloredArr[i]) return coloredArr[i];
+    return this.getDynamicColors();
   }
 
   calculatePieChart(data) {
@@ -42,14 +61,16 @@ export class UtilityService {
         newObj[user.jewelryDTO.barcode] = user.total;
       }
     });
+    let index = 0;
     for (const key in newObj) {
       if (newObj.hasOwnProperty(key)) {
         const total = newObj[key];
         primengObj.labels.push(key);
         primengObj.datasets[0].data.push(total);
-        let color = this.getDynamicColors();
+        let color = this.getStaticColors(index);
         primengObj.datasets[0].backgroundColor.push(color);
         primengObj.datasets[0].hoverBackgroundColor.push(color);
+        index++;
       }
     }
 

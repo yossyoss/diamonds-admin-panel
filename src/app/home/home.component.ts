@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit {
   private loadAllCustomers() {
     this.customersService.getAll().subscribe(users => {
       users.forEach(e => {
+        //making this shit do to sorting problem of matirial tables
         e.sales_person_name =
           e.sales_person.firstName + " " + e.sales_person.lastName;
         e.storeName = e.sales_person.store;

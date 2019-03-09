@@ -42,7 +42,7 @@ export class StatisticsService {
   // ****************
   // Stores API
   // ****************
-  getAllStoresVideos(manufacturerId: number, from: string, to: string) {
+  getAllStoresVideos(manufacturerId: number, from: string, to: string): any {
     return this.http.get(
       `${
         environment.apiUrl
@@ -94,7 +94,7 @@ export class StatisticsService {
     );
   }
 
-  findJewelry(barcode:number) :Observable<any> {
+  findJewelry(barcode: number): Observable<any> {
     return this.http.get(
       `${environment.apiUrl}/diamonds/findJewelry?barcode=${barcode}`
     );

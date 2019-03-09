@@ -10,7 +10,12 @@ import { MatSort, MatTableDataSource } from "@angular/material";
   styleUrls: ["./stores.component.css"]
 })
 export class StoresComponent implements OnInit {
-  displayedColumns: string[] = ["name", "city", "state", "total"];
+  displayedColumns: string[] = [
+    "storename",
+    "storecity",
+    "storestate",
+    "total"
+  ];
   dataSource: any = new MatTableDataSource();
   from: string;
   to: string;
@@ -42,7 +47,16 @@ export class StoresComponent implements OnInit {
         this.utilityService.convertDate(this.to)
       )
       .subscribe(list => {
+        list.forEach(e => {
+          //making this shit do to sorting problem of matirial tables
+          if (e.store) {
+            e.storename = e.store.name;
+            e.storecity = e.store.city;
+            e.storestate = e.store.state;
+          }
+        });
         this.dataSource.data = list;
+        this.dataSource.sort = this.sort;
       });
   }
 }
