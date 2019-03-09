@@ -32,20 +32,21 @@ export class AddEditUserComponent implements OnInit {
       store: []
     });
   }
-  onChange(state) {
-    const manufactureId = 1;
-    this.storesService
-      .getStoresByState(manufactureId, state.abbr)
-      .subscribe(stores => {
-        this.stores = stores;
-        this.editForm.patchValue({ store: stores });
-      });
+  onChange(_event: any, state: any) {
+    if (_event.isUserInput) {
+      const manufactureId = 1;
+      this.storesService
+        .getStoresByState(manufactureId, state.abbr)
+        .subscribe(stores => {
+          this.stores = stores;
+          this.editForm.patchValue({ store: stores });
+        });
+    }
   }
 
   ngOnInit() {
     this.storesService.getAllStates().subscribe(res => {
       this.states = res;
-
       if (this.data.user) {
         //editin user
         this.user = this.data.user;
@@ -67,12 +68,17 @@ export class AddEditUserComponent implements OnInit {
               state: [this.states, [Validators.required]],
               store: [stores, [Validators.required]]
             });
+            console.log(this.user.store.state);
+
+            setTimeout(() => {
+              this.editForm.controls["store"].setValue(this.user.store.name, {
+                onlySelf: true
+              });
+            }, 300);
             this.editForm.controls["state"].setValue(this.user.store.state, {
               onlySelf: true
             });
-            this.editForm.controls["store"].setValue(this.user.store.name, {
-              onlySelf: true
-            });
+            console.log(this.user.store.name);
           });
         // const manufactureId = 1;
         // this.storesService
@@ -84,7 +90,6 @@ export class AddEditUserComponent implements OnInit {
         //       onlySelf: true
         //     });
         //   });
-        console.log("stroeName", stroeName);
       } else {
         //adding user
         this.editForm = this.formBuilder.group({
@@ -104,6 +109,8 @@ export class AddEditUserComponent implements OnInit {
     return this.editForm.controls;
   }
   onSubmit() {
+    console.log("subbmiting");
+
     this.submitted = true;
 
     // stop here if form is invalid

@@ -52,7 +52,7 @@
         <span *ngFor="let state of states">
           <mat-option
             [value]="state.abbr"
-            (onSelectionChange)="onChange(state)"
+            (onSelectionChange)="onChange($event, state)"
             >{{ state.name }}</mat-option
           >
         </span>
@@ -74,7 +74,7 @@
         </span>
       </mat-select>
       <div *ngIf="submitted && f.store.errors" class="invalid-feedback">
-        <div *ngIf="f.store.errors.required">store.name is required</div>
+        <div *ngIf="f.store.errors.required">store is required</div>
       </div>
     </mat-form-field>
     <mat-form-field>
