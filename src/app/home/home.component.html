@@ -8,67 +8,87 @@
       />
     </mat-form-field>
   </div>
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-    <!--- Note that these columns can be defined in any order.
+  <kendo-pdf-export #pdf paperSize="A4" [scale]="0.6" [landscape]="true">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-    </ng-container>
-    <!-- Email Column -->
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
-    </ng-container>
-    <!-- Phone Column -->
-    <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
-      <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
-    </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+        <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+      </ng-container>
+      <!-- Phone Column -->
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
+        <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+      </ng-container>
 
-    <!-- Date Column -->
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Video Sent</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.date | date: "dd/MM/yyyy" }}
-      </td>
-    </ng-container>
+      <!-- Date Column -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Date Video Sent
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.date | date: "dd/MM/yyyy" }}
+        </td>
+      </ng-container>
 
-    <!-- Store Column -->
-    <ng-container matColumnDef="storeName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Store</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.storeName }}
-      </td>
-    </ng-container>
+      <!-- Store Column -->
+      <ng-container matColumnDef="storeName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Store</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.storeName }}
+        </td>
+      </ng-container>
 
-    <!-- Barcode Column -->
-    <ng-container matColumnDef="barcode">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Barcode</th>
-      <td mat-cell *matCellDef="let element">
-        <a
-          routerLink="/statistics/jewellery/{{ element.barcode }}"
-          routerLinkActive="active-link"
-          >{{ element.barcode }}</a
-        >
-      </td>
-    </ng-container>
-    <!-- Sales person Column -->
-    <ng-container matColumnDef="sales_person_name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Sales Person</th>
-      <td mat-cell *matCellDef="let element">
-        <a
-          routerLink="/statistics/sales/{{ element.sales_person?.id }}/name/{{
-            element.sales_person?.firstName
-          }} {{ element.sales_person?.lastName }}"
-          routerLinkActive="active-link"
-          >{{ element.sales_person_name }}</a
-        >
-      </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
+      <!-- Barcode Column -->
+      <ng-container matColumnDef="barcode">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Barcode</th>
+        <td mat-cell *matCellDef="let element">
+          <a
+            routerLink="/statistics/jewellery/{{ element.barcode }}"
+            routerLinkActive="active-link"
+            >{{ element.barcode }}</a
+          >
+        </td>
+      </ng-container>
+      <!-- Sales person Column -->
+      <ng-container matColumnDef="sales_person_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sales Person</th>
+        <td mat-cell *matCellDef="let element">
+          <a
+            routerLink="/statistics/sales/{{ element.sales_person?.id }}/name/{{
+              element.sales_person?.firstName
+            }} {{ element.sales_person?.lastName }}"
+            routerLinkActive="active-link"
+            >{{ element.sales_person_name }}</a
+          >
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </kendo-pdf-export>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="pdf.saveAs('Customers.pdf')"
+    *ngIf="dataSource.data.length"
+  >
+    Export to PDF...
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="exportCsv()"
+    *ngIf="dataSource.data.length"
+  >
+    Export to CSV...
+  </button>
 </div>

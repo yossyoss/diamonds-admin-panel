@@ -69,6 +69,14 @@
     (click)="pdf.saveAs('stores.pdf')"
     *ngIf="dataSource.data.length"
   >
-    Save As PDF...
+    Export to PDF...
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="exportCsv()"
+    *ngIf="dataSource.data.length"
+  >
+    Export to CSV...
   </button>
 </div>

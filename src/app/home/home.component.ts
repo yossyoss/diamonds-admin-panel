@@ -6,7 +6,7 @@ import { Customer } from "@app/_models";
 import { CustomersService, AuthenticationService } from "@app/_services";
 
 import { MatSort, MatTableDataSource } from "@angular/material";
-
+import { ngxCsv } from "ngx-csv/ngx-csv";
 @Component({
   templateUrl: "home.component.html",
   styleUrls: ["home.component.scss"]
@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
     "sales_person_name"
   ];
   dataSource: any = new MatTableDataSource();
+  dataToExport: any[] = [];
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private customersService: CustomersService) {}
@@ -41,6 +42,16 @@ export class HomeComponent implements OnInit {
         e.sales_person_name =
           e.sales_person.firstName + " " + e.sales_person.lastName;
         e.storeName = e.sales_person.store;
+        let dataToExport = {
+          name: e.name,
+          email: e.email,
+          phone: e.phone,
+          date: e.date,
+          storeName: e.storeName,
+          barcode: e.barcode,
+          sales_person_name: e.sales_person_name
+        };
+        this.dataToExport.push(dataToExport);
       });
       this.dataSource.data = users;
       this.dataSource.sort = this.sort;
@@ -155,5 +166,26 @@ export class HomeComponent implements OnInit {
     //     sales_person_name: "Zaken"
     //   }
     // ];
+  }
+  exportCsv() {
+    var options = {
+      fieldSeparator: ",",
+      quoteStrings: '"',
+      showLabels: true,
+      showTitle: false,
+      title: "Customers",
+      useBom: true,
+      noDownload: false,
+      headers: [
+        "Customer Name",
+        "Email",
+        "Phone",
+        "Date Video Sent",
+        "Store",
+        "Barcode",
+        "Sales Person"
+      ]
+    };
+    new ngxCsv(this.dataToExport, "Customers Report", options);
   }
 }

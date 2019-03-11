@@ -66,7 +66,7 @@ import { AddEditUserComponent } from "./add-edit-user/add-edit-user.component";
 import { PDFExportModule } from "@progress/kendo-angular-pdf-export";
 
 import { ExcelExportModule } from "@progress/kendo-angular-excel-export";
-
+import { ngxCsv } from "ngx-csv/ngx-csv";
 @NgModule({
   imports: [
     ToastModule,
