@@ -66,7 +66,10 @@ import { AddEditUserComponent } from "./add-edit-user/add-edit-user.component";
 import { PDFExportModule } from "@progress/kendo-angular-pdf-export";
 
 import { ExcelExportModule } from "@progress/kendo-angular-excel-export";
-import { ngxCsv } from "ngx-csv/ngx-csv";
+
+import { AgmCoreModule } from "@agm/core";;
+import { MapComponent } from './map/map.component'
+
 @NgModule({
   imports: [
     ToastModule,
@@ -119,7 +122,10 @@ import { ngxCsv } from "ngx-csv/ngx-csv";
     MatTreeModule,
     ExportAsModule,
     PDFExportModule,
-    ExcelExportModule
+    ExcelExportModule,
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyD-hIGxFJRzQlModB-LXzWjxMU2lEPvnCM"
+    })
   ],
   declarations: [
     AppComponent,
@@ -131,8 +137,8 @@ import { ngxCsv } from "ngx-csv/ngx-csv";
     UserManagementComponent,
     FiltersRowComponent,
     StoresComponent,
-    AddEditUserComponent
-  ],
+    AddEditUserComponent,
+    MapComponent  ],
   entryComponents: [AddEditUserComponent],
 
   providers: [

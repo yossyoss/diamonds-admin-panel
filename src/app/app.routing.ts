@@ -4,11 +4,13 @@ import { SalesAndStoreStatisticsComponent } from "./sales-and-store-statistics";
 import { UserManagementComponent } from "./user-management";
 import { StoresComponent } from "./stores";
 import { HomeComponent } from "./home";
+import { MapComponent } from "./map";
 import { LoginComponent } from "./login";
 import { AuthGuard } from "./_guards";
 
 const appRoutes: Routes = [
-  { path: "home", component: HomeComponent, canActivate: [AuthGuard] },
+  { path: "customers", component: HomeComponent, canActivate: [AuthGuard] },
+  { path: "home", component: MapComponent, canActivate: [AuthGuard] },
   { path: "", component: LoginComponent },
   {
     path: "users",

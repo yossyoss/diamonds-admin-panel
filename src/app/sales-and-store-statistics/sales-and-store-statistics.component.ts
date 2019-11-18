@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { StatisticsService, UtilityService } from "@app/_services";
 
 import { MessageService } from "primeng/api";
-import { log } from "util";
+
 @Component({
   templateUrl: "./sales-and-store-statistics.component.html",
   styleUrls: ["./sales-and-store-statistics.component.css"]
@@ -72,9 +72,10 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
         .subscribe(data => {
           console.log(data);
 
-          this.data = this.utilityService.calculatePieChart(data);//right side
+          this.data = this.utilityService.calculatePieChart(data); //right side
         });
-    } else { // store scenario
+    } else {
+      // store scenario
       this.statisticsService
         .getStoreVideosByDate(
           1,
@@ -83,7 +84,7 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
           this.utilityService.convertDate(this.to)
         )
         .subscribe(data => {
-          this.dataForLineChart = this.utilityService.calculateLineChart(data);//left side
+          this.dataForLineChart = this.utilityService.calculateLineChart(data); //left side
         });
       this.statisticsService
         .getStoreVideosGroupByJewelry(
@@ -93,7 +94,7 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
           this.utilityService.convertDate(this.to)
         )
         .subscribe(data => {
-          this.data = this.utilityService.calculatePieChart(data);//right side
+          this.data = this.utilityService.calculatePieChart(data); //right side
         });
     }
   }

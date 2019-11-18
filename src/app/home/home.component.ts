@@ -12,6 +12,8 @@ import { ngxCsv } from "ngx-csv/ngx-csv";
   styleUrls: ["home.component.scss"]
 })
 export class HomeComponent implements OnInit {
+  lat = 51.678418;
+  lng = 7.809007;
   displayedColumns: string[] = [
     "name",
     "email",
