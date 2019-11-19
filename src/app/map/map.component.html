@@ -1,11 +1,11 @@
 <div class="row">
-    <div class="col-12 text-center mt-3">
-      <filters-row (dateChange)="onDateChange($event)"></filters-row>
-    </div>
+  <div class="col-12 text-center mt-3">
+    <filters-row (dateChange)="onDateChange($event)"></filters-row>
   </div>
+</div>
 <agm-map
-  [latitude]="lat"
-  [longitude]="lng"
+  [latitude]="latitude"
+  [longitude]="longitude"
   [zoom]="zoom"
   [disableDefaultUI]="false"
   [zoomControl]="false"
@@ -14,24 +14,23 @@
   <agm-marker
     *ngFor="let m of markers; let i = index"
     (markerClick)="clickedMarker(m.label, i)"
-    [latitude]="m.lat"
-    [longitude]="m.lng"
-    [label]="m.label"
+    [latitude]="m.latitude"
+    [longitude]="m.longitude"
+    [label]="m.name"
     [markerDraggable]="m.draggable"
     (dragEnd)="markerDragEnd(m, $event)"
   >
     <agm-info-window>
-      <strong>InfoWindow content</strong>
+      <strong>{{ m.city }}</strong>
     </agm-info-window>
   </agm-marker>
 
-  <agm-circle
+  <!-- <agm-circle
     [latitude]="lat + 0.3"
     [longitude]="lng"
     [radius]="5000"
     [fillColor]="'red'"
     [circleDraggable]="true"
     [editable]="true"
-  >
-  </agm-circle>
+  >   </agm-circle>-->
 </agm-map>

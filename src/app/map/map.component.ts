@@ -11,13 +11,14 @@ export class MapComponent implements OnInit {
   zoom: number = 8;
 
   // initial center position for the map
-  lat: number = 51.673858;
-  lng: number = 7.815982;
+  latitude: number = 35.36915165;
+  longitude: number = -80.7223175609166;
 
   // dataSource: any = new MatTableDataSource();
   from: string;
   to: string;
   dataToExport: any[] = [];
+  markers: marker[];
   // @ViewChild(MatSort) sort: MatSort;
   constructor(
     private statisticsService: StatisticsService,
@@ -31,8 +32,8 @@ export class MapComponent implements OnInit {
 
   mapClicked($event: MouseEvent) {
     this.markers.push({
-      lat: $event.coords.lat,
-      lng: $event.coords.lng,
+      latitude: $event.coords.lat,
+      longitude: $event.coords.lat,
       draggable: true
     });
   }
@@ -56,56 +57,45 @@ export class MapComponent implements OnInit {
         this.utilityService.convertDate(this.to)
       )
       .subscribe(list => {
-        let arr = [];
-        arr.push(
-          list.map(item => item.store)
-        );
+        const arr = list.map(item => item.store);
         console.log(arr);
-        // list.forEach(e => {
-        //   if (e.store) {
-        //     e.storename = e.store.name;
-        //     e.storecity = e.store.city;
-        //     e.storestate = e.store.state;
-        //     let dataToExport = {
-        //       storename: e.storename,
-        //       storecity: e.storecity,
-        //       storestate: e.storestate,
-        //       total: e.total
-        //     };
-        //     this.dataToExport.push(dataToExport);
-        //   }
-        // });
-        // this.dataSource.data = list;
-        // this.dataSource.sort = this.sort;
+        this.markers = arr;
+        if (arr.length) {
+          this.latitude = arr[0].latitude;
+          this.longitude = arr[0].longitude;
+        }
       });
   }
 
-  markers: marker[] = [
-    {
-      lat: 51.673858,
-      lng: 7.815982,
-      label: "A",
-      draggable: true
-    },
-    {
-      lat: 51.373858,
-      lng: 7.215982,
-      label: "B",
-      draggable: false
-    },
-    {
-      lat: 51.723858,
-      lng: 7.895982,
-      label: "C",
-      draggable: true
-    }
-  ];
+  // markers: marker[] = [
+  //   {
+  //     lat: 51.673858,
+  //     lng: 7.815982,
+  //     label: "A",
+  //     draggable: true
+  //   },
+  //   {
+  //     lat: 51.373858,
+  //     lng: 7.215982,
+  //     label: "B",
+  //     draggable: false
+  //   },
+  //   {
+  //     lat: 51.723858,
+  //     lng: 7.895982,
+  //     label: "C",
+  //     draggable: true
+  //   }
+  // ];
 }
 
 // just an interface for type safety.
 interface marker {
-  lat: number;
-  lng: number;
+  latitude: number;
+  longitude: number;
   label?: string;
+  city?: string;
+  name?: string;
+
   draggable: boolean;
 }
