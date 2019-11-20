@@ -5,6 +5,7 @@ import { UserManagementComponent } from "./user-management";
 import { StoresComponent } from "./stores";
 import { HomeComponent } from "./home";
 import { MapComponent } from "./map";
+import { TopJewelryComponent } from "./top-jewwlry";
 import { LoginComponent } from "./login";
 import { AuthGuard } from "./_guards";
 
@@ -20,6 +21,11 @@ const appRoutes: Routes = [
   {
     path: "stores",
     component: StoresComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "topJewelry",
+    component: TopJewelryComponent,
     canActivate: [AuthGuard]
   },
   {

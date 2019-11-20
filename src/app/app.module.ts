@@ -67,9 +67,9 @@ import { PDFExportModule } from "@progress/kendo-angular-pdf-export";
 
 import { ExcelExportModule } from "@progress/kendo-angular-excel-export";
 
-import { AgmCoreModule } from "@agm/core";;
-import { MapComponent } from './map/map.component'
-
+import { AgmCoreModule } from "@agm/core";
+import { MapComponent } from "./map/map.component";
+import { TopJewelryComponent } from "./top-jewwlry/top-jewwlry.component";
 @NgModule({
   imports: [
     ToastModule,
@@ -138,7 +138,9 @@ import { MapComponent } from './map/map.component'
     FiltersRowComponent,
     StoresComponent,
     AddEditUserComponent,
-    MapComponent  ],
+    MapComponent,
+    TopJewelryComponent
+  ],
   entryComponents: [AddEditUserComponent],
 
   providers: [

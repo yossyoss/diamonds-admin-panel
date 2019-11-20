@@ -8,7 +8,7 @@ import { StatisticsService, UtilityService } from "@app/_services";
 })
 export class MapComponent implements OnInit {
   // google maps zoom level
-  zoom: number = 8;
+  zoom: number = 6;
 
   // initial center position for the map
   latitude: number = 35.36915165;
@@ -19,6 +19,7 @@ export class MapComponent implements OnInit {
   to: string;
   dataToExport: any[] = [];
   markers: marker[];
+  infoWindowOpened = null;
   // @ViewChild(MatSort) sort: MatSort;
   constructor(
     private statisticsService: StatisticsService,
@@ -26,17 +27,25 @@ export class MapComponent implements OnInit {
   ) {}
 
   ngOnInit() {}
-  clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`);
+  lastSelectedInfoWindow: any;
+  clickedMarker(infoWindow: any) {
+    if (infoWindow == this.lastSelectedInfoWindow) {
+      return;
+    }
+    if (this.lastSelectedInfoWindow != null) {
+      try {
+        this.lastSelectedInfoWindow.close();
+      } catch {} //in case if you reload your markers
+    }
+    this.lastSelectedInfoWindow = infoWindow;
   }
 
-  mapClicked($event: MouseEvent) {
-    this.markers.push({
-      latitude: $event.coords.lat,
-      longitude: $event.coords.lat,
-      draggable: true
-    });
-  }
+  // mapClicked($event: MouseEvent) {
+  //   this.markers.push({
+  //     latitude: $event.coords.lat,
+  //     longitude: $event.coords.lat
+  //   });
+  // }
 
   markerDragEnd(m: marker, $event: MouseEvent) {
     console.log("dragEnd", m, $event);
@@ -57,7 +66,10 @@ export class MapComponent implements OnInit {
         this.utilityService.convertDate(this.to)
       )
       .subscribe(list => {
-        const arr = list.map(item => item.store);
+        const arr = list.map(item => {
+          item.store.total = item.total;
+          return item.store;
+        });
         console.log(arr);
         this.markers = arr;
         if (arr.length) {
@@ -93,6 +105,8 @@ export class MapComponent implements OnInit {
 interface marker {
   latitude: number;
   longitude: number;
+  id: number;
+  total: number;
   label?: string;
   city?: string;
   name?: string;

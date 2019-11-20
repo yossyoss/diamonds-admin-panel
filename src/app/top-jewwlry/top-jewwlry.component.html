@@ -1,0 +1,6 @@
+<div class="row">
+  <div class="col-12 text-center mt-3">
+    <filters-row (dateChange)="onDateChange($event)"></filters-row>
+  </div>
+</div>
+<p-chart type="line" [data]="dataForLineChart" [options]="options"></p-chart>
