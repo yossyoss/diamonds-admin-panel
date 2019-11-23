@@ -1,25 +1,20 @@
-<div class="row">
-  <div class="col-12 text-center mt-3">
-    <filters-row (dateChange)="onDateChange($event)"></filters-row>
-  </div>
-</div>
 <agm-map
   [latitude]="latitude"
   [longitude]="longitude"
   [zoom]="zoom"
-  [disableDefaultUI]="false"
-  [zoomControl]="false"
+  [zoomControl]="true"
 >
   <agm-marker
     *ngFor="let m of markers; let i = index"
     (markerClick)="clickedMarker(infoWindow)"
-    [latitude]="m.latitude"
-    [longitude]="m.longitude"
+    [latitude]="m.store.latitude"
+    [longitude]="m.store.longitude"
   >
     <agm-info-window #infoWindow>
-      <a routerLink="/statistics/stores/{{ m.id }}/name/{{ m.name }}">{{
-        m.name
-      }}</a>
+      <a
+        routerLink="/statistics/stores/{{ m.store.id }}/name/{{ m.store.name }}"
+        >{{ m.store.name }}</a
+      >
       <br />
       <strong>Total Videos Sent: {{ m.total }}</strong>
     </agm-info-window>

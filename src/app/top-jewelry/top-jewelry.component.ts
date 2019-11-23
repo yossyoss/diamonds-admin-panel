@@ -1,15 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { StatisticsService, UtilityService } from "@app/_services";
-import { ExportAsService, ExportAsConfig } from "ngx-export-as";
+import { trigger, style, animate, transition } from '@angular/animations';
 
 @Component({
-  selector: 'app-top-jewwlry',
-  templateUrl: './top-jewwlry.component.html',
-  styleUrls: ['./top-jewwlry.component.css']
+  selector: "app-top-jewelry",
+  templateUrl: "./top-jewelry.component.html",
+  animations: [
+    trigger(
+      'enterAnimation', [
+        transition(':enter', [
+          style({transform: 'translateX(100%)', opacity: 0}),
+          animate('500ms', style({transform: 'translateX(0)', opacity: 1}))
+        ]),
+        transition(':leave', [
+          style({transform: 'translateX(0)', opacity: 1}),
+          animate('500ms', style({transform: 'translateX(100%)', opacity: 0}))
+        ])
+      ]
+    )
+  ],
+  styleUrls: ["./top-jewelry.component.css"]
 })
 export class TopJewelryComponent implements OnInit {
   id: number;
+  checked: boolean = true;
   dataForLineChart: any;
+  dataForPieChart: any;
   options = {
     legend: {
       display: false
@@ -25,8 +41,7 @@ export class TopJewelryComponent implements OnInit {
     private utilityService: UtilityService
   ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onDateChange(e) {
     if (e) {
@@ -38,21 +53,14 @@ export class TopJewelryComponent implements OnInit {
 
   private getStatisticsByDate() {
     this.statisticsService
-      .getJewelryByBarcodeAndDate(
-        this.id,
+      .getTopJewelry(
+        1,
         this.utilityService.convertDate(this.from),
         this.utilityService.convertDate(this.to)
       )
       .subscribe(data => {
-        this.statisticsService
-          .findJewelry(this.id)
-          .subscribe(({ videoLink }) => {
-            this.videoLink = videoLink;
-          });
-        // TODO - remove comments and remove mock
-        // this.videoLink = data[0] ? data[0].jewelryDTO.videoLink : null;
+        this.dataForPieChart = this.utilityService.calculatePieChart(data);
         this.dataForLineChart = this.utilityService.calculateLineChart(data);
       });
   }
-
 }

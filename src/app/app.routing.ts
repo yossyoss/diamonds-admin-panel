@@ -5,7 +5,7 @@ import { UserManagementComponent } from "./user-management";
 import { StoresComponent } from "./stores";
 import { HomeComponent } from "./home";
 import { MapComponent } from "./map";
-import { TopJewelryComponent } from "./top-jewwlry";
+import { TopJewelryComponent } from "./top-jewelry";
 import { LoginComponent } from "./login";
 import { AuthGuard } from "./_guards";
 

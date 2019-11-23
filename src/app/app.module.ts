@@ -59,6 +59,8 @@ import {
 import { UserManagementComponent } from "./user-management/user-management.component";
 import { ChartModule } from "primeng/chart";
 import { MessageService } from "primeng/api";
+import { ToggleButtonModule } from "primeng/togglebutton";
+
 import { ToastModule } from "primeng/toast";
 import { CalendarModule } from "primeng/calendar";
 import { AddEditUserComponent } from "./add-edit-user/add-edit-user.component";
@@ -69,12 +71,14 @@ import { ExcelExportModule } from "@progress/kendo-angular-excel-export";
 
 import { AgmCoreModule } from "@agm/core";
 import { MapComponent } from "./map/map.component";
-import { TopJewelryComponent } from "./top-jewwlry/top-jewwlry.component";
+import { TopJewelryComponent } from "./top-jewelry/top-jewelry.component";
+
 @NgModule({
   imports: [
     ToastModule,
     CalendarModule,
     ChartModule,
+    ToggleButtonModule,
     BrowserModule,
     MatTableModule,
     ReactiveFormsModule,

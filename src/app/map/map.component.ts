@@ -15,18 +15,15 @@ export class MapComponent implements OnInit {
   longitude: number = -80.7223175609166;
 
   // dataSource: any = new MatTableDataSource();
-  from: string;
-  to: string;
-  dataToExport: any[] = [];
+
   markers: marker[];
   infoWindowOpened = null;
   // @ViewChild(MatSort) sort: MatSort;
-  constructor(
-    private statisticsService: StatisticsService,
-    private utilityService: UtilityService
-  ) {}
+  constructor(private statisticsService: StatisticsService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadAllStores();
+  }
   lastSelectedInfoWindow: any;
   clickedMarker(infoWindow: any) {
     if (infoWindow == this.lastSelectedInfoWindow) {
@@ -47,35 +44,26 @@ export class MapComponent implements OnInit {
   //   });
   // }
 
-  markerDragEnd(m: marker, $event: MouseEvent) {
-    console.log("dragEnd", m, $event);
-  }
+  // markerDragEnd(m: marker, $event: MouseEvent) {
+  //   console.log("dragEnd", m, $event);
+  // }
 
-  onDateChange(e) {
-    if (e) {
-      this.from = e.from;
-      this.to = e.to;
-      this.loadAllStores();
-    }
-  }
   private loadAllStores() {
     this.statisticsService
-      .getAllStoresVideos(
-        1,
-        this.utilityService.convertDate(this.from),
-        this.utilityService.convertDate(this.to)
-      )
-      .subscribe(list => {
-        const arr = list.map(item => {
-          item.store.total = item.total;
-          return item.store;
-        });
-        console.log(arr);
-        this.markers = arr;
-        if (arr.length) {
-          this.latitude = arr[0].latitude;
-          this.longitude = arr[0].longitude;
-        }
+      .getAllStoresPerManufacturer(1)
+      .subscribe((list: Array<marker>) => {
+        console.log(list);
+        this.markers = list;
+        // const arr = list.map(item => {
+        //   item.store.total = item.total;
+        //   return item.store;
+        // });
+        // console.log(arr);
+        // this.markers = arr;
+        // if (arr.length) {
+        //   this.latitude = arr[0].latitude;
+        //   this.longitude = arr[0].longitude;
+        // }
       });
   }
 
@@ -103,13 +91,13 @@ export class MapComponent implements OnInit {
 
 // just an interface for type safety.
 interface marker {
-  latitude: number;
-  longitude: number;
-  id: number;
+  day: string;
+  store: {
+    latitude: number;
+    longitude: number;
+    id: number;
+    city: string;
+    name: string;
+  };
   total: number;
-  label?: string;
-  city?: string;
-  name?: string;
-
-  draggable: boolean;
 }
