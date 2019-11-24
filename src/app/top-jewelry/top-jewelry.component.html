@@ -3,28 +3,13 @@
     <filters-row (dateChange)="onDateChange($event)"></filters-row>
   </div>
 </div>
-<div class="row">
-  <div class="col-12 mb-5">
-    <p-toggleButton
-      [(ngModel)]="checked"
-      onLabel="Switch To Pie Chart"
-      offLabel="Switch To line Chart"
-    ></p-toggleButton>
-  </div>
-</div>
 
 <div class="row">
-  <div class="col-10 offset-1">
-    <p-chart
-      *ngIf="checked"
-      type="line"
-      [data]="dataForLineChart"
-      [options]="options"
-    ></p-chart>
-    <p-chart
-      *ngIf="!checked"
-      type="doughnut"
-      [data]="dataForPieChart"
-    ></p-chart>
+  <div class="col-6">
+    <!-- <h3 class="text-center">Total Videos Sent Per Day</h3> -->
+    <p-chart type="bar" [data]="dataForLineChart" [options]="options"></p-chart>
+  </div>
+  <div class="col-6">
+    <p-chart type="doughnut" [data]="dataForPieChart"></p-chart>
   </div>
 </div>

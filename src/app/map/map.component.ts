@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, OnDestroy } from "@angular/core";
 import { MouseEvent } from "@agm/core";
 import { StatisticsService, UtilityService } from "@app/_services";
 @Component({
@@ -6,14 +6,14 @@ import { StatisticsService, UtilityService } from "@app/_services";
   templateUrl: "./map.component.html",
   styleUrls: ["./map.component.css"]
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnDestroy {
   // google maps zoom level
-  zoom: number = 6;
+  zoom: number = 8;
 
   // initial center position for the map
-  latitude: number = 35.36915165;
-  longitude: number = -80.7223175609166;
-
+  latitude: number;
+  longitude: number;
+  loadAllStoresIntervalVar: any;
   // dataSource: any = new MatTableDataSource();
 
   markers: marker[];
@@ -23,19 +23,29 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.loadAllStores();
+    this.loadAllStoresIntervalVar = setInterval(() => {
+      this.loadAllStoresInterval();
+    }, 10000);
   }
+
+  ngOnDestroy() {
+    if (this.loadAllStoresIntervalVar) {
+      clearInterval(this.loadAllStoresIntervalVar);
+    }
+  }
+
   lastSelectedInfoWindow: any;
-  clickedMarker(infoWindow: any) {
-    if (infoWindow == this.lastSelectedInfoWindow) {
-      return;
-    }
-    if (this.lastSelectedInfoWindow != null) {
-      try {
-        this.lastSelectedInfoWindow.close();
-      } catch {} //in case if you reload your markers
-    }
-    this.lastSelectedInfoWindow = infoWindow;
-  }
+  // clickedMarker(infoWindow: any) {
+  //   if (infoWindow == this.lastSelectedInfoWindow) {
+  //     return;
+  //   }
+  //   if (this.lastSelectedInfoWindow != null) {
+  //     try {
+  //       this.lastSelectedInfoWindow.close();
+  //     } catch {} //in case if you reload your markers
+  //   }
+  //   this.lastSelectedInfoWindow = infoWindow;
+  // }
 
   // mapClicked($event: MouseEvent) {
   //   this.markers.push({
@@ -47,6 +57,19 @@ export class MapComponent implements OnInit {
   // markerDragEnd(m: marker, $event: MouseEvent) {
   //   console.log("dragEnd", m, $event);
   // }
+  private loadAllStoresInterval() {
+    console.log("test2");
+    this.statisticsService
+      .getAllStoresPerManufacturer(1)
+      .subscribe((list2: Array<marker>) => {
+        list2.map(item => {
+          const marker = this.markers.filter(marker => {
+            return marker.store.id === item.store.id;
+          });
+          marker[0].total = item.total;
+        });
+      });
+  }
 
   private loadAllStores() {
     this.statisticsService
@@ -54,16 +77,8 @@ export class MapComponent implements OnInit {
       .subscribe((list: Array<marker>) => {
         console.log(list);
         this.markers = list;
-        // const arr = list.map(item => {
-        //   item.store.total = item.total;
-        //   return item.store;
-        // });
-        // console.log(arr);
-        // this.markers = arr;
-        // if (arr.length) {
-        //   this.latitude = arr[0].latitude;
-        //   this.longitude = arr[0].longitude;
-        // }
+        this.latitude = list[0].store.latitude || 35.36915165;
+        this.longitude = list[0].store.longitude || -80.7223175609166;
       });
   }
 

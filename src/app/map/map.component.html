@@ -6,11 +6,10 @@
 >
   <agm-marker
     *ngFor="let m of markers; let i = index"
-    (markerClick)="clickedMarker(infoWindow)"
     [latitude]="m.store.latitude"
     [longitude]="m.store.longitude"
   >
-    <agm-info-window #infoWindow>
+    <agm-info-window #infoWindow [isOpen]="true">
       <a
         routerLink="/statistics/stores/{{ m.store.id }}/name/{{ m.store.name }}"
         >{{ m.store.name }}</a
