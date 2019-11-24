@@ -36,6 +36,9 @@ export class TopJewelryComponent implements OnInit {
           stacked: true
         }
       ]
+    },
+    label: {
+      display: false
     }
   };
   // rangeDates: Date[] = [];

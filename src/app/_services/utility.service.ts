@@ -142,8 +142,9 @@ export class UtilityService {
         {
           label: "Videos sent: ",
           data: [],
+          hoverBackgroundColor: [],
+          backgroundColor: [],
           fill: true,
-          backgroundColor: "#9CCC65",
           borderColor: "#7CB342"
         }
       ],
@@ -161,17 +162,22 @@ export class UtilityService {
       }
     };
     data.forEach(user => {
-      if (newObj[user.day]) {
-        newObj[user.day] += user.total;
+      if (newObj[user.jewelryDTO.barcode]) {
+        newObj[user.jewelryDTO.barcode] += user.total;
       } else {
-        newObj[user.day] = user.total;
+        newObj[user.jewelryDTO.barcode] = user.total;
       }
     });
+    let index = 0;
     for (const key in newObj) {
       if (newObj.hasOwnProperty(key)) {
         const total = newObj[key];
         primengObj.labels.push(key);
         primengObj.datasets[0].data.push(total);
+        let color = this.getStaticColors(index);
+        primengObj.datasets[0].backgroundColor.push(color);
+        primengObj.datasets[0].hoverBackgroundColor.push(color);
+        index++;
       }
     }
     if (!primengObj.labels.length) {
@@ -182,7 +188,8 @@ export class UtilityService {
             label: "Videos sent: ",
             data: [1],
             fill: true,
-            backgroundColor: "#c5c5c5",
+            backgroundColor: ["#c5c5c5"],
+            hoverBackgroundColor: ["#c5c5c5"],
             borderColor: "#c5c5c5"
           }
         ],
