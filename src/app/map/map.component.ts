@@ -8,7 +8,7 @@ import { StatisticsService, UtilityService } from "@app/_services";
 })
 export class MapComponent implements OnInit, OnDestroy {
   // google maps zoom level
-  zoom: number = 8;
+  zoom: number = 5;
 
   // initial center position for the map
   latitude: number;
@@ -63,9 +63,9 @@ export class MapComponent implements OnInit, OnDestroy {
       .getAllStoresPerManufacturer(1)
       .subscribe((list2: Array<marker>) => {
         list2.map(item => {
-          const marker = this.markers.filter(marker => {
-            return marker.store.id === item.store.id;
-          });
+          const marker = this.markers.filter(
+            marker => marker.store.id === item.store.id
+          );
           marker[0].total = item.total;
         });
       });
@@ -77,8 +77,10 @@ export class MapComponent implements OnInit, OnDestroy {
       .subscribe((list: Array<marker>) => {
         console.log(list);
         this.markers = list;
-        this.latitude = list[0].store.latitude || 35.36915165;
-        this.longitude = list[0].store.longitude || -80.7223175609166;
+        setTimeout(() => {
+          this.latitude = 37.243347;
+          this.longitude = -101.361668;
+        }, 500);
       });
   }
 
