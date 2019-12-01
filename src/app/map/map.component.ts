@@ -80,7 +80,7 @@ export class MapComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.latitude = 37.243347;
           this.longitude = -101.361668;
-        }, 500);
+        }, 1000);
       });
   }
 
