@@ -36,20 +36,20 @@ export class StatisticsService {
   // ****************
   // Stores API
   // ****************
-  getAllStoresVideos(manufacturerId: number, from: string, to: string): any {
+  getAllStoresVideos(manufacturerId: string, from: string, to: string): any {
     return this.http.get(
       `${environment.apiUrl}/statistics/getAllStoresVideos?manufacturerId=${manufacturerId}&from=${from}&to=${to}`
     );
   }
 
-  getAllStoresPerManufacturer(manufacturerId: number) {
+  getAllStoresPerManufacturer(manufacturerId: string) {
     return this.http.get(
       `${environment.apiUrl}/statistics/getAllStoresPerManufacturer?manufacturerId=${manufacturerId}`
     );
   }
 
   getStoreVideosByDate(
-    manufacturerId: number,
+    manufacturerId: string,
     storeId: number,
     from: string,
     to: string
@@ -59,7 +59,7 @@ export class StatisticsService {
     );
   }
   getStoreVideosGroupByJewelry(
-    manufacturerId: number,
+    manufacturerId: string,
     storeId: number,
     from: string,
     to: string
@@ -78,7 +78,7 @@ export class StatisticsService {
     );
   }
 
-  getTopJewelry(manufacturerId: number, from: string, to: string) {
+  getTopJewelry(manufacturerId: string, from: string, to: string) {
     return this.http.get(
       `${environment.apiUrl}/statistics/getTopJewelry?manufacturerId=${manufacturerId}&from=${from}&to=${to}`
     );

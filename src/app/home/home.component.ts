@@ -14,6 +14,7 @@ import { ngxCsv } from "ngx-csv/ngx-csv";
 export class HomeComponent implements OnInit {
   lat = 51.678418;
   lng = 7.809007;
+  manufacturerId: string;
   displayedColumns: string[] = [
     "name",
     "email",
@@ -27,9 +28,13 @@ export class HomeComponent implements OnInit {
   dataToExport: any[] = [];
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private customersService: CustomersService) {}
+  constructor(
+    private customersService: CustomersService,
+    private authenticationService: AuthenticationService
+  ) {}
 
   ngOnInit() {
+    this.manufacturerId = this.authenticationService.currentUserValue.manufacturerId;
     this.dataSource.sort = this.sort;
     this.loadAllCustomers();
   }
@@ -38,7 +43,7 @@ export class HomeComponent implements OnInit {
   }
 
   private loadAllCustomers() {
-    this.customersService.getAll().subscribe(users => {
+    this.customersService.getAll(this.manufacturerId).subscribe(users => {
       users.forEach(e => {
         //making this shit do to sorting problem of matirial tables
         e.sales_person_name =

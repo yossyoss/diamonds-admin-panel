@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 
-import { StatisticsService, UtilityService } from "@app/_services";
+import {
+  StatisticsService,
+  UtilityService,
+  AuthenticationService
+} from "@app/_services";
 
 import { MatSort, MatTableDataSource } from "@angular/material";
 import { ngxCsv } from "ngx-csv/ngx-csv";
@@ -20,17 +24,19 @@ export class StoresComponent implements OnInit {
   dataSource: any = new MatTableDataSource();
   from: string;
   to: string;
+  manufacturerId: string;
   dataToExport: any[] = [];
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private statisticsService: StatisticsService,
+    private authenticationService: AuthenticationService,
     private utilityService: UtilityService
   ) {}
 
   ngOnInit() {
     console.log(this.dataSource.data);
-
+    this.manufacturerId = this.authenticationService.currentUserValue.manufacturerId;
     this.dataSource.sort = this.sort;
   }
   applyFilter(filterValue: string) {
@@ -47,7 +53,7 @@ export class StoresComponent implements OnInit {
   private loadAllStores() {
     this.statisticsService
       .getAllStoresVideos(
-        1,
+        this.manufacturerId,
         this.utilityService.convertDate(this.from),
         this.utilityService.convertDate(this.to)
       )

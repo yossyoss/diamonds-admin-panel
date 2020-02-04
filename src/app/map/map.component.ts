@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild, OnDestroy } from "@angular/core";
 import { MouseEvent } from "@agm/core";
-import { StatisticsService, UtilityService } from "@app/_services";
+import {
+  StatisticsService,
+  UtilityService,
+  AuthenticationService
+} from "@app/_services";
 @Component({
   selector: "app-map",
   templateUrl: "./map.component.html",
@@ -15,13 +19,18 @@ export class MapComponent implements OnInit, OnDestroy {
   longitude: number;
   loadAllStoresIntervalVar: any;
   // dataSource: any = new MatTableDataSource();
-
+  manufacturerId: string;
   markers: marker[];
   infoWindowOpened = null;
   // @ViewChild(MatSort) sort: MatSort;
-  constructor(private statisticsService: StatisticsService) {}
+  constructor(
+    private statisticsService: StatisticsService,
+    private authenticationService: AuthenticationService
+  ) {}
 
   ngOnInit() {
+    this.manufacturerId = this.authenticationService.currentUserValue.manufacturerId;
+    console.log("this.manufacturerId", this.manufacturerId);
     this.loadAllStores();
     this.loadAllStoresIntervalVar = setInterval(() => {
       this.loadAllStoresInterval();
@@ -58,9 +67,8 @@ export class MapComponent implements OnInit, OnDestroy {
   //   console.log("dragEnd", m, $event);
   // }
   private loadAllStoresInterval() {
-    console.log("test2");
     this.statisticsService
-      .getAllStoresPerManufacturer(1)
+      .getAllStoresPerManufacturer(this.manufacturerId)
       .subscribe((list2: Array<marker>) => {
         list2.map(item => {
           const marker = this.markers.filter(
@@ -73,9 +81,8 @@ export class MapComponent implements OnInit, OnDestroy {
 
   private loadAllStores() {
     this.statisticsService
-      .getAllStoresPerManufacturer(1)
+      .getAllStoresPerManufacturer(this.manufacturerId)
       .subscribe((list: Array<marker>) => {
-        console.log(list);
         this.markers = list;
         setTimeout(() => {
           this.latitude = 37.243347;

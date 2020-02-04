@@ -8,11 +8,11 @@ import { Customer } from "@app/_models";
 export class CustomersService {
   constructor(private http: HttpClient) {}
 
-  getAll() {
+  getAll(manufacturerId) {
     return this.http.get<Customer[]>(
       `${
         environment.apiUrl
-      }/external/getCustomersByManufacturer?manufacturerId=1`
+      }/external/getCustomersByManufacturer?manufacturerId=${manufacturerId}`
     );
   }
 }

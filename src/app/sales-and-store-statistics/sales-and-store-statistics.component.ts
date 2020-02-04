@@ -1,6 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { StatisticsService, UtilityService } from "@app/_services";
+import {
+  StatisticsService,
+  UtilityService,
+  AuthenticationService
+} from "@app/_services";
 
 import { MessageService } from "primeng/api";
 
@@ -22,9 +26,11 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
   id: number;
   storeName: string;
   path: string;
+  manufacturerId: string;
   rangeDates: Date;
   constructor(
     private utilityService: UtilityService,
+    private authenticationService: AuthenticationService,
     private messageService: MessageService,
     private route: ActivatedRoute,
     private statisticsService: StatisticsService
@@ -33,7 +39,7 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
   ngOnInit() {
     console.log(this.route.snapshot.url[1].path);
     console.log(this.route.snapshot.params);
-
+    this.manufacturerId = this.authenticationService.currentUserValue.manufacturerId;
     this.id = this.route.snapshot.params.id;
 
     this.path = this.route.snapshot.url[1].path;
@@ -78,7 +84,7 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
       // store scenario
       this.statisticsService
         .getStoreVideosByDate(
-          1,
+          this.manufacturerId,
           this.id,
           this.utilityService.convertDate(this.from),
           this.utilityService.convertDate(this.to)
@@ -88,7 +94,7 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
         });
       this.statisticsService
         .getStoreVideosGroupByJewelry(
-          1,
+          this.manufacturerId,
           this.id,
           this.utilityService.convertDate(this.from),
           this.utilityService.convertDate(this.to)

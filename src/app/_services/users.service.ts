@@ -8,41 +8,35 @@ import { User } from "@app/_models";
 export class UsersService {
   constructor(private http: HttpClient) {}
 
-  getAllUsersByManufacturer(manufacturerId: number) {
+  getAllUsersByManufacturer(manufacturerId: string) {
     return this.http.get<User[]>(
       `${environment.apiUrl}/user/getAllUsers?manufacturerId=${manufacturerId}`
     );
   }
 
-  getUsersByStore(manufacturerId: number, storeName: string) {
+  getUsersByStore(manufacturerId: string, storeName: string) {
     return this.http.get(
-      `${
-        environment.apiUrl
-      }/users/getUsersByStore?manufacturerId=${manufacturerId}&storeName=${storeName}`
+      `${environment.apiUrl}/users/getUsersByStore?manufacturerId=${manufacturerId}&storeName=${storeName}`
     );
   }
-  getUsersByCity(manufacturerId: number, state: string, city: string) {
+  getUsersByCity(manufacturerId: string, state: string, city: string) {
     return this.http.get(
-      `${
-        environment.apiUrl
-      }/users/getUsersByCity?manufacturerId=${manufacturerId}&state=${state}&city=${city}`
+      `${environment.apiUrl}/users/getUsersByCity?manufacturerId=${manufacturerId}&state=${state}&city=${city}`
     );
   }
-  addUser(user: User, manufacturerId: number) {
+  addUser(user: User, manufacturerId: string) {
     return this.http.post(
       `${environment.apiUrl}/user/addUser?manufacturerId=${manufacturerId}`,
       user
     );
   }
-  deleteUser(manufacturerId: number, username: string) {
+  deleteUser(manufacturerId: string, username: string) {
     return this.http.delete(
-      `${
-        environment.apiUrl
-      }/user/deleteUser?username=${username}&manufacturerId=${manufacturerId}`
+      `${environment.apiUrl}/user/deleteUser?username=${username}&manufacturerId=${manufacturerId}`
     );
   }
 
-  updateUser(user: User, manufacturerId: number) {
+  updateUser(user: User, manufacturerId: string) {
     return this.http.put(
       `${environment.apiUrl}/user/updateUser?manufacturerId=${manufacturerId}`,
       user

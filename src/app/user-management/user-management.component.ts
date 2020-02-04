@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { UsersService, StoresService } from "@app/_services";
+import {
+  UsersService,
+  StoresService,
+  AuthenticationService
+} from "@app/_services";
 import {
   MatSort,
   MatTableDataSource,
@@ -21,17 +25,20 @@ export class UserManagementComponent implements OnInit {
     "action"
   ];
   dataSource: any = new MatTableDataSource(); // = new MatTableDataSource(ELEMENT_DATA);
+  manufacturerId: string;
   @ViewChild(MatSort) sort: MatSort;
   states;
   constructor(
     private usersService: UsersService,
+    private authenticationService: AuthenticationService,
     public dialog: MatDialog,
     public storeService: StoresService
   ) {}
 
   // users: any;
   ngOnInit() {
-    this.loadAllUsers(1);
+    this.manufacturerId = this.authenticationService.currentUserValue.manufacturerId;
+    this.loadAllUsers(this.manufacturerId);
   }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -44,10 +51,11 @@ export class UserManagementComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log("The dialog was closed", result);
       if (result) {
-        let manufacturerId = 1;
-        this.usersService.addUser(result, manufacturerId).subscribe(res => {
-          this.loadAllUsers(1);
-        });
+        this.usersService
+          .addUser(result, this.manufacturerId)
+          .subscribe(res => {
+            this.loadAllUsers(this.manufacturerId);
+          });
       }
     });
   }
@@ -70,20 +78,22 @@ export class UserManagementComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log("The dialog was closed", result);
       if (result) {
-        let manufacturerId = 1;
-        this.usersService.updateUser(result, manufacturerId).subscribe(res => {
-          console.log(res);
-          this.loadAllUsers(1);
-        });
+        this.usersService
+          .updateUser(result, this.manufacturerId)
+          .subscribe(res => {
+            console.log(res);
+            this.loadAllUsers(this.manufacturerId);
+          });
       }
     });
   }
   removeUser(username) {
     console.log(username);
-    const manufacturerId = 1;
-    this.usersService.deleteUser(manufacturerId, username).subscribe(res => {
-      console.log(res);
-      this.loadAllUsers(1);
-    });
+    this.usersService
+      .deleteUser(this.manufacturerId, username)
+      .subscribe(res => {
+        console.log(res);
+        this.loadAllUsers(this.manufacturerId);
+      });
   }
 }

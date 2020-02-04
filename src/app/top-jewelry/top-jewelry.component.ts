@@ -1,5 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { StatisticsService, UtilityService } from "@app/_services";
+import {
+  StatisticsService,
+  UtilityService,
+  AuthenticationService
+} from "@app/_services";
 import { trigger, style, animate, transition } from "@angular/animations";
 
 @Component({
@@ -44,14 +48,18 @@ export class TopJewelryComponent implements OnInit {
   // rangeDates: Date[] = [];
   from: string;
   to: string;
+  manufacturerId: string;
   videoLink: string;
   invalidDates: Array<Date>;
   constructor(
     private statisticsService: StatisticsService,
+    private authenticationService: AuthenticationService,
     private utilityService: UtilityService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.manufacturerId = this.authenticationService.currentUserValue.manufacturerId;
+  }
 
   onDateChange(e) {
     if (e) {
@@ -64,7 +72,7 @@ export class TopJewelryComponent implements OnInit {
   private getStatisticsByDate() {
     this.statisticsService
       .getTopJewelry(
-        1,
+        this.manufacturerId,
         this.utilityService.convertDate(this.from),
         this.utilityService.convertDate(this.to)
       )

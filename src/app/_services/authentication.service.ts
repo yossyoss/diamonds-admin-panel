@@ -2,10 +2,9 @@
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
-
+import * as jwt_decode from "jwt-decode";
 import { environment } from "@environments/environment";
 import { Customer } from "@app/_models";
-import { log } from "util";
 
 @Injectable({ providedIn: "root" })
 export class AuthenticationService {
@@ -26,15 +25,15 @@ export class AuthenticationService {
   login(username: string, password: string) {
     return this.http
       .post<any>(
-        `${
-          environment.apiUrl
-        }/auth/login?username=${username}&password=${password}`,
+        `${environment.apiUrl}/auth/login?username=${username}&password=${password}`,
         {}
       )
       .pipe(
         map(user => {
           // login successful if there's a jwt token in the response
           if (user && user.token) {
+            const decodedToken = jwt_decode(user.token);
+            user.manufacturerId = decodedToken.jti;
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem("currentUser", JSON.stringify(user));
             this.currentUserSubject.next(user);
