@@ -13,6 +13,13 @@
     <li class="nav-item">
       <a class="nav-link" routerLink="/home" routerLinkActive="active">
         <img
+          *ngIf="manufacturerId === '2'"
+          class="ml-dynamic-data-img bh-logo imgMacysResponsiveId"
+          src="../assets/macys4.png"
+          alt="macys Company Home"
+          id="imgMacysResponsiveId"/>
+        <img
+          *ngIf="manufacturerId !== '2'"
           class="ml-dynamic-data-img bh-logo imgRespId"
           src="../assets/helzberglogo.png"
           alt="Helzberg Diamonds a Berkshire Hathaway Company Home"
