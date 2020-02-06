@@ -5,7 +5,7 @@ import {
   AuthenticationService
 } from "@app/_services";
 import { trigger, style, animate, transition } from "@angular/animations";
-
+import { Router } from "@angular/router";
 @Component({
   selector: "app-top-jewelry",
   templateUrl: "./top-jewelry.component.html",
@@ -54,6 +54,7 @@ export class TopJewelryComponent implements OnInit {
   constructor(
     private statisticsService: StatisticsService,
     private authenticationService: AuthenticationService,
+    private router: Router,
     private utilityService: UtilityService
   ) {}
 
@@ -67,6 +68,12 @@ export class TopJewelryComponent implements OnInit {
       this.to = e.to;
       this.getStatisticsByDate();
     }
+  }
+  selectData(event) {
+    const index = event.element._index;
+    const label = this.dataForPieChart.labels[index];
+    console.log(label);
+    this.router.navigate(["/statistics/jewellery", label]);
   }
 
   private getStatisticsByDate() {
