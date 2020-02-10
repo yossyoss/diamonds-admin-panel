@@ -1,6 +1,10 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material";
-import { UsersService, StoresService, AuthenticationService } from "@app/_services";
+import {
+  UsersService,
+  StoresService,
+  AuthenticationService
+} from "@app/_services";
 import { MatDialogRef } from "@angular/material";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 @Component({
@@ -68,7 +72,6 @@ export class AddEditUserComponent implements OnInit {
               state: [this.states, [Validators.required]],
               store: [stores, [Validators.required]]
             });
-            console.log(this.user.store.state);
 
             setTimeout(() => {
               this.editForm.controls["store"].setValue(this.user.store.name, {
@@ -78,7 +81,6 @@ export class AddEditUserComponent implements OnInit {
             this.editForm.controls["state"].setValue(this.user.store.state, {
               onlySelf: true
             });
-            console.log(this.user.store.name);
           });
         // const manufactureId = 1;
         // this.storesService
@@ -109,8 +111,6 @@ export class AddEditUserComponent implements OnInit {
     return this.editForm.controls;
   }
   onSubmit() {
-    console.log("subbmiting");
-
     this.submitted = true;
 
     // stop here if form is invalid
