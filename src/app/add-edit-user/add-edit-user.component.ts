@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material";
-import { UsersService, StoresService } from "@app/_services";
+import { UsersService, StoresService, AuthenticationService } from "@app/_services";
 import { MatDialogRef } from "@angular/material";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 @Component({
@@ -15,9 +15,11 @@ export class AddEditUserComponent implements OnInit {
   states: any;
   stores: any;
   inValid: string;
+  manufacturerId: string;
   constructor(
     private dialogRef: MatDialogRef<AddEditUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private authenticationService: AuthenticationService,
     private usersService: UsersService,
     private formBuilder: FormBuilder,
     public storesService: StoresService
@@ -34,9 +36,8 @@ export class AddEditUserComponent implements OnInit {
   }
   onChange(_event: any, state: any) {
     if (_event.isUserInput) {
-      const manufactureId = 1;
       this.storesService
-        .getStoresByState(manufactureId, state.abbr)
+        .getStoresByState(this.manufacturerId, state.abbr)
         .subscribe(stores => {
           this.stores = stores;
           this.editForm.patchValue({ store: stores });
@@ -45,16 +46,15 @@ export class AddEditUserComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.manufacturerId = this.authenticationService.currentUserValue.manufacturerId;
     this.storesService.getAllStates().subscribe(res => {
       this.states = res;
       if (this.data.user) {
         //editin user
         this.user = this.data.user;
         const stroeName = this.user.store ? this.user.store.name : "";
-
-        const manufactureId = 1;
         this.storesService
-          .getStoresByState(manufactureId, this.user.store.state)
+          .getStoresByState(this.manufacturerId, this.user.store.state)
           .subscribe(stores => {
             this.editForm = this.formBuilder.group({
               firstName: [this.user.firstName, Validators.required],
