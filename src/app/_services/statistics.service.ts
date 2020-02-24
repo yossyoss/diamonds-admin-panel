@@ -90,6 +90,17 @@ export class StatisticsService {
     );
   }
 
+  getJewelryCountPerStore(
+    manufacturerId: string,
+    jewelryId: number,
+    from: string,
+    to: string
+  ) {
+    return this.http.get<[]>(
+      `${environment.apiUrl}/statistics/getJewelryCountPerStore?manufacturerId=${manufacturerId}&jewelryId=${jewelryId}&from=${from}&to=${to}`
+    );
+  }
+
   findJewelry(barcode: number): Observable<any> {
     return this.http.get(
       `${environment.apiUrl}/diamonds/findJewelry?barcode=${barcode}`

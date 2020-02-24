@@ -1,6 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { StatisticsService, UtilityService } from "@app/_services";
+import {
+  StatisticsService,
+  UtilityService,
+  AuthenticationService
+} from "@app/_services";
 import { ExportAsService, ExportAsConfig } from "ngx-export-as";
 @Component({
   templateUrl: "./jewellery-statistics.component.html",
@@ -13,6 +17,7 @@ export class JewelleryStatisticsComponent implements OnInit {
   };
   id: number;
   dataForLineChart: any;
+  dataForBarChart: any;
   options = {
     legend: {
       display: false
@@ -23,17 +28,21 @@ export class JewelleryStatisticsComponent implements OnInit {
   to: string;
   videoLink: string;
   invalidDates: Array<Date>;
+  manufacturerId: string;
   constructor(
     private exportAsService: ExportAsService,
     private route: ActivatedRoute,
     private statisticsService: StatisticsService,
+    private authenticationService: AuthenticationService,
     private utilityService: UtilityService
   ) {}
 
   ngOnInit() {
     this.id = this.route.snapshot.params.id;
+    this.manufacturerId = this.authenticationService.currentUserValue.manufacturerId;
     // this.useMock();
   }
+
   export() {
     const exportAsConfig: ExportAsConfig = {
       type: "pdf", // the type you want to download
@@ -143,6 +152,7 @@ export class JewelleryStatisticsComponent implements OnInit {
       this.from = e.from;
       this.to = e.to;
       this.getStatisticsByDate();
+      this.getJewelryCountPerStore();
     }
   }
 
@@ -162,6 +172,23 @@ export class JewelleryStatisticsComponent implements OnInit {
         // TODO - remove comments and remove mock
         // this.videoLink = data[0] ? data[0].jewelryDTO.videoLink : null;
         this.dataForLineChart = this.utilityService.calculateLineChart(data);
+      });
+  }
+
+  private getJewelryCountPerStore() {
+    this.statisticsService
+      .getJewelryCountPerStore(
+        this.manufacturerId,
+        this.id,
+        this.utilityService.convertDate(this.from),
+        this.utilityService.convertDate(this.to)
+      )
+      .subscribe(data => {
+        // TODO - remove comments and remove mock
+        // this.videoLink = data[0] ? data[0].jewelryDTO.videoLink : null;
+        if (data && data.length) {
+          this.dataForBarChart = this.utilityService.calculateBarChart(data);
+        }
       });
   }
 }

@@ -22,6 +22,17 @@
       </div>
     </div>
   </div>
+  <div class="row" id="myTableIdElementId">
+    <div class="col-md-6 offset-md-3 col-sm-12 mt-4">
+      <h3 class="text-center">Videos per store</h3>
+
+      <p-chart
+        type="bar"
+        [data]="dataForBarChart"
+        [options]="options"
+      ></p-chart>
+    </div>
+  </div>
 </kendo-pdf-export>
 <!-- <button (click)="export()">Export</button> -->
 <div class="example-config">
