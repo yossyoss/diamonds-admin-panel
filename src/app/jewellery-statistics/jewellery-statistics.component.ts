@@ -152,7 +152,6 @@ export class JewelleryStatisticsComponent implements OnInit {
       this.from = e.from;
       this.to = e.to;
       this.getStatisticsByDate();
-      this.getJewelryCountPerStore();
     }
   }
 
@@ -166,8 +165,9 @@ export class JewelleryStatisticsComponent implements OnInit {
       .subscribe(data => {
         this.statisticsService
           .findJewelry(this.id)
-          .subscribe(({ videoLink }) => {
+          .subscribe(({ videoLink, id }) => {
             this.videoLink = videoLink;
+            this.getJewelryCountPerStore(id);
           });
         // TODO - remove comments and remove mock
         // this.videoLink = data[0] ? data[0].jewelryDTO.videoLink : null;
@@ -175,11 +175,11 @@ export class JewelleryStatisticsComponent implements OnInit {
       });
   }
 
-  private getJewelryCountPerStore() {
+  private getJewelryCountPerStore(id) {
     this.statisticsService
       .getJewelryCountPerStore(
         this.manufacturerId,
-        this.id,
+        id,
         this.utilityService.convertDate(this.from),
         this.utilityService.convertDate(this.to)
       )
