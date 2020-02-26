@@ -187,7 +187,7 @@ export class JewelleryStatisticsComponent implements OnInit {
         // TODO - remove comments and remove mock
         // this.videoLink = data[0] ? data[0].jewelryDTO.videoLink : null;
         if (data && data.length) {
-          this.dataForBarChart = this.utilityService.calculateBarChart(data);
+          this.dataForBarChart = this.utilityService.calculateBarChartForStors(data);
         }
       });
   }

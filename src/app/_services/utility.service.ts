@@ -36,6 +36,12 @@ export class UtilityService {
       "#6890ec",
       "#9068ec",
       "#e568ec",
+      "#bfcebf",
+      "#acacb4",
+      "#897373",
+      "#06357a",
+      "#507e4e",
+      "#ec891d",
       "#ec68b0"
     ];
     if (coloredArr[i]) return coloredArr[i];
@@ -166,6 +172,81 @@ export class UtilityService {
         newObj[user.jewelryDTO.barcode] += user.total;
       } else {
         newObj[user.jewelryDTO.barcode] = user.total;
+      }
+    });
+    let index = 0;
+    for (const key in newObj) {
+      if (newObj.hasOwnProperty(key)) {
+        const total = newObj[key];
+        primengObj.labels.push(key);
+        primengObj.datasets[0].data.push(total);
+        let color = this.getStaticColors(index);
+        primengObj.datasets[0].backgroundColor.push(color);
+        primengObj.datasets[0].hoverBackgroundColor.push(color);
+        index++;
+      }
+    }
+    if (!primengObj.labels.length) {
+      primengObj = {
+        labels: ["None"],
+        datasets: [
+          {
+            label: "Videos sent: ",
+            data: [1],
+            fill: true,
+            backgroundColor: ["#c5c5c5"],
+            hoverBackgroundColor: ["#c5c5c5"],
+            borderColor: "#c5c5c5"
+          }
+        ],
+        options: {
+          label: {
+            display: false
+          },
+          tooltips: {
+            callbacks: {
+              label: function(tooltipItem) {
+                return tooltipItem.yLabel;
+              }
+            }
+          }
+        }
+      };
+    }
+    return primengObj;
+  }
+  calculateBarChartForStors(data) {
+    let newObj = {};
+    let primengObj = {
+      labels: [],
+      datasets: [
+        {
+          label: "Videos sent: ",
+          data: [],
+          hoverBackgroundColor: [],
+          backgroundColor: [],
+          fill: true,
+          borderColor: "#7CB342"
+        }
+      ],
+      options: {
+        label: {
+          display: false
+        },
+        tooltips: {
+          callbacks: {
+            label: function(tooltipItem) {
+              return tooltipItem.yLabel;
+            }
+          }
+        }
+      }
+    };
+    data.forEach(jewelry => {
+      if (newObj[jewelry.store.name]) {
+        newObj[jewelry.store.name] += jewelry.total;
+      } else {
+        newObj[jewelry.store.name] = jewelry.total;
       }
     });
     let index = 0;
