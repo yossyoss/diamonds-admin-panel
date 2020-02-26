@@ -19,6 +19,16 @@ export class JewelleryStatisticsComponent implements OnInit {
   dataForLineChart: any;
   dataForBarChart: any;
   options = {
+    responsive: true,
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true
+          }
+        }
+      ]
+    },
     legend: {
       display: false
     }
@@ -187,7 +197,9 @@ export class JewelleryStatisticsComponent implements OnInit {
         // TODO - remove comments and remove mock
         // this.videoLink = data[0] ? data[0].jewelryDTO.videoLink : null;
         if (data && data.length) {
-          this.dataForBarChart = this.utilityService.calculateBarChartForStors(data);
+          this.dataForBarChart = this.utilityService.calculateBarChartForStors(
+            data
+          );
         }
       });
   }

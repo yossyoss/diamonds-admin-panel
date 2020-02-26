@@ -29,6 +29,7 @@ export class TopJewelryComponent implements OnInit {
   dataForLineChart: any;
   dataForPieChart: any;
   options = {
+    responsive: true,
     scales: {
       xAxes: [
         {
@@ -37,6 +38,9 @@ export class TopJewelryComponent implements OnInit {
       ],
       yAxes: [
         {
+          ticks: {
+            beginAtZero: true
+          },
           stacked: true
         }
       ]
