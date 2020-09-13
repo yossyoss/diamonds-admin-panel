@@ -1,6 +1,7 @@
 video {
   width: 100%;
-  max-width: 86%;
+  max-width: 640px;
   height: auto;
+  max-height: 360px;
   box-shadow: 12px 9px 13px #8e7f7f;
 }
