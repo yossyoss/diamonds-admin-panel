@@ -128,7 +128,7 @@ import { TopJewelryComponent } from "./top-jewelry/top-jewelry.component";
     PDFExportModule,
     ExcelExportModule,
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyASd8qxNEECgrbQLHO9luNdgPZUpwlc5bk"
+      apiKey: "AIzaSyD-hIGxFJRzQlModB-LXzWjxMU2lEPvnCM"
     })
   ],
   declarations: [
