@@ -8,6 +8,7 @@ import {
 
 import { MatSort, MatTableDataSource } from "@angular/material";
 import { ngxCsv } from "ngx-csv/ngx-csv";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "stores",
@@ -50,6 +51,7 @@ export class StoresComponent implements OnInit {
   constructor(
     private statisticsService: StatisticsService,
     private authenticationService: AuthenticationService,
+    private router: Router,
     private utilityService: UtilityService
   ) {}
 
