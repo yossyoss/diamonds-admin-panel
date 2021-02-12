@@ -209,6 +209,7 @@ export class UtilityService {
     }
     return primengObj;
   }
+  //new method specific for store.ts
   calculateStoresBarChart(data) {
     let newObj = {};
     let primengObj = {
