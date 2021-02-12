@@ -209,4 +209,79 @@ export class UtilityService {
     }
     return primengObj;
   }
+  calculateStoresBarChart(data) {
+    let newObj = {};
+    let primengObj = {
+      labels: [],
+      datasets: [
+        {
+          label: "Videos sent: ",
+          data: [],
+          hoverBackgroundColor: [],
+          backgroundColor: [],
+          fill: true,
+          borderColor: "#7CB342"
+        }
+      ],
+      options: {
+        label: {
+          display: false
+        },
+        tooltips: {
+          callbacks: {
+            label: function(tooltipItem) {
+              return tooltipItem.yLabel;
+            }
+          }
+        }
+      }
+    };
+    data.forEach(data => {
+      if (newObj[data.storename]) {
+        newObj[data.storename] += data.total;
+      } else {
+        newObj[data.storename] = data.total;
+      }
+    });
+    let index = 0;
+    for (const key in newObj) {
+      if (newObj.hasOwnProperty(key)) {
+        const total = newObj[key];
+        primengObj.labels.push(key);
+        primengObj.datasets[0].data.push(total);
+        let color = this.getStaticColors(index);
+        primengObj.datasets[0].backgroundColor.push(color);
+        primengObj.datasets[0].hoverBackgroundColor.push(color);
+        index++;
+      }
+    }
+    if (!primengObj.labels.length) {
+      primengObj = {
+        labels: ["None"],
+        datasets: [
+          {
+            label: "Videos sent: ",
+            data: [1],
+            fill: true,
+            backgroundColor: ["#c5c5c5"],
+            hoverBackgroundColor: ["#c5c5c5"],
+            borderColor: "#c5c5c5"
+          }
+        ],
+        options: {
+          label: {
+            display: false
+          },
+          tooltips: {
+            callbacks: {
+              label: function(tooltipItem) {
+                return tooltipItem.yLabel;
+              }
+            }
+          }
+        }
+      };
+    }
+    return primengObj;
+  }
 }

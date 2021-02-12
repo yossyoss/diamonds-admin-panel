@@ -23,7 +23,6 @@ export class StoresComponent implements OnInit {
     "total"
   ];
   dataForLineChart: any;
-  dataForPieChart: any;
   dataSource: any = new MatTableDataSource();
   from: string;
   to: string;
@@ -68,28 +67,15 @@ export class StoresComponent implements OnInit {
       this.from = e.from;
       this.to = e.to;
       this.loadAllStores();
-      this.getStatisticsByDate();
       console.log(this.sort);
     }
   }
-  private getStatisticsByDate() {
-    this.statisticsService
-      .getTopJewelry(
-        this.manufacturerId,
-        this.utilityService.convertDate(this.from),
-        this.utilityService.convertDate(this.to)
-      )
-      .subscribe(data => {
-        this.dataForPieChart = this.utilityService.calculatePieChart(data);
-        this.dataForLineChart = this.utilityService.calculateBarChart(data);
-      });
-  }
 
   selectData(event) {
-    const index = event.element._index;
-    const label = this.dataForPieChart.labels[index];
-    console.log(label);
-    this.router.navigate(["/statistics/jewellery", label]);
+    // const index = event.element._index;
+    // const label = this.dataForPieChart.labels[index];
+    // console.log(label);
+    // this.router.navigate(["/statistics/jewellery", label]);
   }
   private loadAllStores() {
     this.statisticsService
@@ -114,6 +100,10 @@ export class StoresComponent implements OnInit {
             this.dataToExport.push(dataToExport);
           }
         });
+        this.dataForLineChart = this.utilityService.calculateStoresBarChart(
+          list
+        );
+
         this.dataSource.data = list;
         this.dataSource.sort = this.sort;
       });
