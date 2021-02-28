@@ -27,7 +27,7 @@ export class TopJewelryComponent implements OnInit {
   id: number;
   checked: boolean = true;
   dataForLineChart: any;
-  dataForPieChart: any;
+  dataForStoreLineChart: any;
   options = {
     scales: {
       xAxes: [
@@ -66,15 +66,17 @@ export class TopJewelryComponent implements OnInit {
     if (e) {
       this.from = e.from;
       this.to = e.to;
+      this.loadAllStores();
       this.getStatisticsByDate();
     }
   }
   selectData(event) {
-    const index = event.element._index;
-    const label = this.dataForPieChart.labels[index];
-    console.log(label);
-    this.router.navigate(["/statistics/jewellery", label]);
+    // const index = event.element._index;
+    // const label = this.dataForPieChart.labels[index];
+    // console.log(label);
+    // this.router.navigate(["/statistics/jewellery", label]);
   }
+  selectStorData() {}
 
   private getStatisticsByDate() {
     this.statisticsService
@@ -84,8 +86,28 @@ export class TopJewelryComponent implements OnInit {
         this.utilityService.convertDate(this.to)
       )
       .subscribe(data => {
-        this.dataForPieChart = this.utilityService.calculatePieChart(data);
         this.dataForLineChart = this.utilityService.calculateBarChart(data);
+      });
+  }
+  private loadAllStores() {
+    this.statisticsService
+      .getAllStoresVideos(
+        this.manufacturerId,
+        this.utilityService.convertDate(this.from),
+        this.utilityService.convertDate(this.to)
+      )
+      .subscribe(list => {
+        list.forEach(e => {
+          //making this shit do to sorting problem of matirial tables
+          if (e.store) {
+            e.storename = e.store.name;
+            e.storecity = e.store.city;
+            e.storestate = e.store.state;
+          }
+        });
+        this.dataForStoreLineChart = this.utilityService.calculateStoresBarChart(
+          list
+        );
       });
   }
 }

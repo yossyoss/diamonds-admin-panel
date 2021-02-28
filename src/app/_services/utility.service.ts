@@ -168,12 +168,23 @@ export class UtilityService {
         newObj[user.jewelryDTO.barcode] = user.total;
       }
     });
+    var sortable = [];
+    for (var vehicle in newObj) {
+      sortable.push([vehicle, newObj[vehicle]]);
+    }
+
+    sortable.sort(function(a, b) {
+      return b[1] - a[1];
+    });
+    sortable.map(s => {
+      primengObj.labels.push(s[0]);
+    });
+    sortable.map(s => {
+      primengObj.datasets[0].data.push(s[1]);
+    });
     let index = 0;
     for (const key in newObj) {
       if (newObj.hasOwnProperty(key)) {
-        const total = newObj[key];
-        primengObj.labels.push(key);
-        primengObj.datasets[0].data.push(total);
         let color = this.getStaticColors(index);
         primengObj.datasets[0].backgroundColor.push(color);
         primengObj.datasets[0].hoverBackgroundColor.push(color);
@@ -244,12 +255,23 @@ export class UtilityService {
         newObj[data.storename] = data.total;
       }
     });
+    var sortable = [];
+    for (var vehicle in newObj) {
+      sortable.push([vehicle, newObj[vehicle]]);
+    }
+
+    sortable.sort(function(a, b) {
+      return b[1] - a[1];
+    });
+    sortable.map(s => {
+      primengObj.labels.push(s[0]);
+    });
+    sortable.map(s => {
+      primengObj.datasets[0].data.push(s[1]);
+    });
     let index = 0;
     for (const key in newObj) {
       if (newObj.hasOwnProperty(key)) {
-        const total = newObj[key];
-        primengObj.labels.push(key);
-        primengObj.datasets[0].data.push(total);
         let color = this.getStaticColors(index);
         primengObj.datasets[0].backgroundColor.push(color);
         primengObj.datasets[0].hoverBackgroundColor.push(color);
