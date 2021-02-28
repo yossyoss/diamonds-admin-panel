@@ -221,13 +221,13 @@ export class UtilityService {
     return primengObj;
   }
   //new method specific for store.ts
-  calculateStoresBarChart(data) {
+  calculateStoresBarChart(data, title = "Top Stores:") {
     let newObj = {};
     let primengObj = {
       labels: [],
       datasets: [
         {
-          label: "Top Stores: ",
+          label: title,
           data: [],
           hoverBackgroundColor: [],
           backgroundColor: [],
@@ -283,7 +283,7 @@ export class UtilityService {
         labels: ["None"],
         datasets: [
           {
-            label: "Top Stores: ",
+            label: title,
             data: [1],
             fill: true,
             backgroundColor: ["#c5c5c5"],
