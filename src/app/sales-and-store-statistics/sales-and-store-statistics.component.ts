@@ -17,6 +17,7 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
   from: string;
   to: string;
   dataForLineChart: any;
+  dataForStoreVideosLineChart: any;
   salesMan: any;
   options = {
     legend: {
@@ -78,7 +79,10 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
         .subscribe(data => {
           console.log(data);
 
-          this.data = this.utilityService.calculatePieChart(data); //right side
+          // this.data = this.utilityService.calculatePieChart(data); //right side
+          this.dataForStoreVideosLineChart = this.utilityService.calculateBarChart(
+            data
+          );
         });
     } else {
       // store scenario
@@ -100,7 +104,10 @@ export class SalesAndStoreStatisticsComponent implements OnInit {
           this.utilityService.convertDate(this.to)
         )
         .subscribe(data => {
-          this.data = this.utilityService.calculatePieChart(data); //right side
+          // this.data = this.utilityService.calculatePieChart(data); //right side
+          this.dataForStoreVideosLineChart = this.utilityService.calculateBarChart(
+            data
+          );
         });
     }
   }

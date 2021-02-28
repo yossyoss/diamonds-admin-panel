@@ -140,7 +140,7 @@ export class UtilityService {
       labels: [],
       datasets: [
         {
-          label: "Videos sent: ",
+          label: "Top Videos: ",
           data: [],
           hoverBackgroundColor: [],
           backgroundColor: [],
@@ -196,7 +196,7 @@ export class UtilityService {
         labels: ["None"],
         datasets: [
           {
-            label: "Videos sent: ",
+            label: "Top Videos: ",
             data: [1],
             fill: true,
             backgroundColor: ["#c5c5c5"],
@@ -227,7 +227,7 @@ export class UtilityService {
       labels: [],
       datasets: [
         {
-          label: "Videos sent: ",
+          label: "Top Stores: ",
           data: [],
           hoverBackgroundColor: [],
           backgroundColor: [],
@@ -283,7 +283,7 @@ export class UtilityService {
         labels: ["None"],
         datasets: [
           {
-            label: "Videos sent: ",
+            label: "Top Stores: ",
             data: [1],
             fill: true,
             backgroundColor: ["#c5c5c5"],

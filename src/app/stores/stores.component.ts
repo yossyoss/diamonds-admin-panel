@@ -22,6 +22,7 @@ export class StoresComponent implements OnInit {
     "storestate",
     "total"
   ];
+  storeToId = {};
   dataForLineChart: any;
   dataSource: any = new MatTableDataSource();
   from: string;
@@ -72,11 +73,13 @@ export class StoresComponent implements OnInit {
   }
 
   selectData(event) {
-    // const index = event.element._index;
-    // const label = this.dataForPieChart.labels[index];
-    // console.log(label);
-    // this.router.navigate(["/statistics/jewellery", label]);
+    const index = event.element._index;
+    const label = this.dataForLineChart.labels[index];
+    const id = this.storeToId[label];
+    if (label !== "None")
+      this.router.navigate([`/statistics/stores/${id}/name`, label]);
   }
+
   private loadAllStores() {
     this.statisticsService
       .getAllStoresVideos(
@@ -97,6 +100,7 @@ export class StoresComponent implements OnInit {
               storestate: e.storestate,
               total: e.total
             };
+            this.storeToId[e.store.name] = e.store.id;
             this.dataToExport.push(dataToExport);
           }
         });

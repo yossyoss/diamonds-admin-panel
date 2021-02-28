@@ -24,6 +24,15 @@
       <h3 class="text-center" *ngIf="salesMan">
         Videos Sent
       </h3>
+      <h3 class="text-center" *ngIf="!salesMan">
+        Videos Sent
+      </h3>
+      <p-chart
+        type="horizontalBar"
+        [data]="dataForStoreVideosLineChart"
+        [options]="options"
+        (onDataSelect)="selectData($event)"
+      ></p-chart>
     </div>
   </div>
 </kendo-pdf-export>

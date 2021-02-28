@@ -26,6 +26,7 @@ import { Router } from "@angular/router";
 export class TopJewelryComponent implements OnInit {
   id: number;
   checked: boolean = true;
+  storeToId = {};
   dataForLineChart: any;
   dataForStoreLineChart: any;
   options = {
@@ -71,12 +72,18 @@ export class TopJewelryComponent implements OnInit {
     }
   }
   selectData(event) {
-    // const index = event.element._index;
-    // const label = this.dataForPieChart.labels[index];
-    // console.log(label);
-    // this.router.navigate(["/statistics/jewellery", label]);
+    const index = event.element._index;
+    const label = this.dataForLineChart.labels[index];
+    if (label !== "None")
+      this.router.navigate(["/statistics/jewellery", label]);
   }
-  selectStorData() {}
+  selectStorData(event) {
+    const index = event.element._index;
+    const label = this.dataForStoreLineChart.labels[index];
+    const id = this.storeToId[label];
+    if (label !== "None")
+      this.router.navigate([`/statistics/stores/${id}/name`, label]);
+  }
 
   private getStatisticsByDate() {
     this.statisticsService
@@ -103,6 +110,7 @@ export class TopJewelryComponent implements OnInit {
             e.storename = e.store.name;
             e.storecity = e.store.city;
             e.storestate = e.store.state;
+            this.storeToId[e.store.name] = e.store.id;
           }
         });
         this.dataForStoreLineChart = this.utilityService.calculateStoresBarChart(
