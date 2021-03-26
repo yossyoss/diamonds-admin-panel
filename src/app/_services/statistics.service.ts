@@ -84,6 +84,12 @@ export class StatisticsService {
     );
   }
 
+  getTopSalesPerson(manufacturerId: string, from: string, to: string) {
+    return this.http.get(
+      `${environment.apiUrl}/statistics/getTopSalesPerson?manufacturerId=${manufacturerId}&from=${from}&to=${to}`
+    );
+  }
+
   getJewelryByDate(userId: number, from: string, to: string) {
     return this.http.get(
       `${environment.apiUrl}/statistics/getJewelryByDate?userId=${userId}&from=${from}&to=${to}`

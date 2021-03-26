@@ -70,6 +70,7 @@ export class TopJewelryComponent implements OnInit {
       this.to = e.to;
       this.loadAllStores();
       this.getStatisticsByDate();
+      this.getTopSalesPerson();
     }
   }
   selectData(event) {
@@ -97,6 +98,22 @@ export class TopJewelryComponent implements OnInit {
         this.dataForLineChart = this.utilityService.calculateBarChart(data);
       });
   }
+
+  private getTopSalesPerson() {
+    this.statisticsService
+      .getTopSalesPerson(
+        this.manufacturerId,
+        this.utilityService.convertDate(this.from),
+        this.utilityService.convertDate(this.to)
+      )
+      .subscribe(data => {
+        this.dataForSalesMenLineChart = this.utilityService.calculateSalesBarChart(
+          data,
+          "Top Sales:"
+        );
+      });
+  }
+
   private loadAllStores() {
     this.statisticsService
       .getAllStoresVideos(
@@ -116,91 +133,6 @@ export class TopJewelryComponent implements OnInit {
         });
         this.dataForStoreLineChart = this.utilityService.calculateStoresBarChart(
           list
-        );
-        this.dataForSalesMenLineChart = this.utilityService.calculateStoresBarChart(
-          [
-            {
-              jewelryDTO: null,
-              day: "11/22/20",
-              total: 7,
-              store: {
-                id: 13,
-                name: "Chris Martin",
-                city: "Tucson",
-                state: "AZ",
-                latitude: 32.2212831,
-                longitude: -110.9603379
-              },
-              storename: "Chris Martin",
-              storecity: "Tucson",
-              storestate: "AZ"
-            },
-            {
-              jewelryDTO: null,
-              day: "12/18/20",
-              total: 15,
-              store: {
-                id: 25,
-                name: "Zlatan Ibrahimovic",
-                city: "Altamonte Springs",
-                state: "FL",
-                latitude: 28.666781,
-                longitude: -81.3773282
-              },
-              storename: "Zlatan Ibrahimovic",
-              storecity: "Altamonte Springs",
-              storestate: "FL"
-            },
-            {
-              jewelryDTO: null,
-              day: "1/19/21",
-              total: 12,
-              store: {
-                id: 39,
-                name: "Roger Federer",
-                city: "Littleton",
-                state: "CO",
-                latitude: 39.6096087,
-                longitude: -105.0367206
-              },
-              storename: "Roger Federer",
-              storecity: "Littleton",
-              storestate: "CO"
-            },
-            {
-              jewelryDTO: null,
-              day: "2/7/21",
-              total: 26,
-              store: {
-                id: 15,
-                name: "Emilio Rodrigues",
-                city: "Sacramento",
-                state: "CA",
-                latitude: 0,
-                longitude: 0
-              },
-              storename: "Emilio Rodrigues",
-              storecity: "Sacramento",
-              storestate: "CA"
-            },
-            {
-              jewelryDTO: null,
-              day: "2/7/21",
-              total: 10,
-              store: {
-                id: 20,
-                name: "Mark Dundee",
-                city: "Greenwood",
-                state: "IN",
-                latitude: 34.819568,
-                longitude: -86.9441695
-              },
-              storename: "Mark Dundee",
-              storecity: "Greenwood",
-              storestate: "IN"
-            }
-          ],
-          "Top Sales People:"
         );
       });
   }

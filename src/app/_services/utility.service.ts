@@ -307,4 +307,93 @@ export class UtilityService {
     }
     return primengObj;
   }
+
+  //new method specific for top-sales
+  calculateSalesBarChart(data, title = "Top Stores:") {
+    let newObj = {};
+    let primengObj = {
+      labels: [],
+      datasets: [
+        {
+          label: title,
+          data: [],
+          hoverBackgroundColor: [],
+          backgroundColor: [],
+          fill: true,
+          borderColor: "#7CB342"
+        }
+      ],
+      options: {
+        label: {
+          display: false
+        },
+        tooltips: {
+          callbacks: {
+            label: function(tooltipItem) {
+              return tooltipItem.yLabel;
+            }
+          }
+        }
+      }
+    };
+    data.forEach(data => {
+      const name = `${data.user.firstName} ${data.user.lastName}`;
+      if (newObj[data.user.store]) {
+        newObj[name] += data.total;
+      } else {
+        newObj[name] = data.total;
+      }
+    });
+    var sortable = [];
+    for (var vehicle in newObj) {
+      sortable.push([vehicle, newObj[vehicle]]);
+    }
+
+    sortable.sort(function(a, b) {
+      return b[1] - a[1];
+    });
+    sortable.map(s => {
+      primengObj.labels.push(s[0]);
+    });
+    sortable.map(s => {
+      primengObj.datasets[0].data.push(s[1]);
+    });
+    let index = 0;
+    for (const key in newObj) {
+      if (newObj.hasOwnProperty(key)) {
+        let color = this.getStaticColors(index);
+        primengObj.datasets[0].backgroundColor.push(color);
+        primengObj.datasets[0].hoverBackgroundColor.push(color);
+        index++;
+      }
+    }
+    if (!primengObj.labels.length) {
+      primengObj = {
+        labels: ["None"],
+        datasets: [
+          {
+            label: title,
+            data: [1],
+            fill: true,
+            backgroundColor: ["#c5c5c5"],
+            hoverBackgroundColor: ["#c5c5c5"],
+            borderColor: "#c5c5c5"
+          }
+        ],
+        options: {
+          label: {
+            display: false
+          },
+          tooltips: {
+            callbacks: {
+              label: function(tooltipItem) {
+                return tooltipItem.yLabel;
+              }
+            }
+          }
+        }
+      };
+    }
+    return primengObj;
+  }
 }
