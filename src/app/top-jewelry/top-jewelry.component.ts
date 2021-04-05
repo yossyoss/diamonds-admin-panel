@@ -86,6 +86,14 @@ export class TopJewelryComponent implements OnInit {
     if (label !== "None")
       this.router.navigate([`/statistics/stores/${id}/name`, label]);
   }
+  
+  selectSalesData(event) {
+    const index = event.element._index;
+    const label = this.dataForSalesMenLineChart.labels[index];
+    const id = this.dataForSalesMenLineChart.datasets[0].mapping[label];
+    if (label !== "None")
+      this.router.navigate([`/statistics/sales/${id}/name`, label]);
+  }
 
   private getStatisticsByDate() {
     this.statisticsService
@@ -109,7 +117,7 @@ export class TopJewelryComponent implements OnInit {
       .subscribe(data => {
         this.dataForSalesMenLineChart = this.utilityService.calculateSalesBarChart(
           data,
-          "Top Sales:"
+          "Top Sales Person:"
         );
       });
   }

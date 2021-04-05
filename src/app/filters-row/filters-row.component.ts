@@ -21,7 +21,7 @@ export class FiltersRowComponent implements OnInit {
   @Output() dateChange = new EventEmitter<Object>();
   constructor() {}
   ngOnInit() {
-    this.setDate(7);
+    this.setDate(12);
     // this.dateChange.emit({ from: this.startDate, to: this.endDate });
   }
   onselect(date?: MatDatepickerInputEvent<Date>, action?: string) {

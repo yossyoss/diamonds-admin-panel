@@ -311,6 +311,7 @@ export class UtilityService {
   //new method specific for top-sales
   calculateSalesBarChart(data, title = "Top Stores:") {
     let newObj = {};
+    const mapping = {};
     let primengObj = {
       labels: [],
       datasets: [
@@ -318,6 +319,7 @@ export class UtilityService {
           label: title,
           data: [],
           hoverBackgroundColor: [],
+          mapping: {},
           backgroundColor: [],
           fill: true,
           borderColor: "#7CB342"
@@ -338,12 +340,15 @@ export class UtilityService {
     };
     data.forEach(data => {
       const name = `${data.user.firstName} ${data.user.lastName}`;
+      const id = data.user.id;
+      mapping[name] = id;
       if (newObj[data.user.store]) {
         newObj[name] += data.total;
       } else {
         newObj[name] = data.total;
       }
     });
+    primengObj.datasets[0].mapping = mapping;
     var sortable = [];
     for (var vehicle in newObj) {
       sortable.push([vehicle, newObj[vehicle]]);
@@ -375,6 +380,7 @@ export class UtilityService {
             label: title,
             data: [1],
             fill: true,
+            mapping: {},
             backgroundColor: ["#c5c5c5"],
             hoverBackgroundColor: ["#c5c5c5"],
             borderColor: "#c5c5c5"
